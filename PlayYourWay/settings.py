@@ -11,7 +11,8 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
-import django-heroku
+import django_heroku
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -21,12 +22,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '%3lf=i+-i$1uq9i*lfaj%&mbvu9z+=9#r1uh0_90wt_6l@klro'
+
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
+DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ['127.0.0.1','playscape.herokuapp.com']
+ALLOWED_HOSTS = ['playscape.herokuapp.com']
 
 
 # Application definition
@@ -86,14 +89,16 @@ WSGI_APPLICATION = 'PlayYourWay.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
-
+#'default': {
+#    "ENGINE": "django.contrib.gis.db.backends.postgis",
+#    "NAME": "postgres",
+#    "USER": "postgres",
+#    'CONN_MAX_AGE': 500,
+#}
 DATABASES = {
-    'default': {
-        "ENGINE": "django.contrib.gis.db.backends.postgis",
-        "NAME": "postgres",
-        "USER": "postgres",
-        'CONN_MAX_AGE': 500,
-    }
+    'default':{
+           dj_database_url.config(default=config('DATABASE_URL'),
+           }
 }
 
 
