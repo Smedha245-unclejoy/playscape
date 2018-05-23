@@ -96,9 +96,9 @@ WSGI_APPLICATION = 'PlayYourWay.wsgi.application'
 #    'CONN_MAX_AGE': 500,
 #}
 DATABASES = {
-    'default':{
-           dj_database_url.config(default=config('DATABASE_URL'),
-           }
+    'default':dj_database_url.config(
+         default=config('DATABASE_URL'),
+
 }
 
 
