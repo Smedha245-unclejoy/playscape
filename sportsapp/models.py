@@ -2,7 +2,6 @@ from django.db import models
 from django.db.models.fields import DateField
 from django.contrib.auth.models import User
 from django.contrib.gis.db import models
-from phonenumber_field.modelfields import PhoneNumberField
 from django.core.validators import MinValueValidator, MaxValueValidator
 
 

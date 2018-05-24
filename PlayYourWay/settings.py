@@ -46,7 +46,6 @@ INSTALLED_APPS = [
     'django.contrib.gis',
     'rest_framework',
     'rest_framework.authtoken',
-    'phonenumber_field',
     'oauth2_provider',
     'social_django',
     'rest_framework_social_oauth2',

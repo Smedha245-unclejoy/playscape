@@ -14,13 +14,12 @@ from oauth2_provider.models import AccessToken, Application, RefreshToken
 from django.utils.timezone import now, timedelta
 from oauthlib.common import generate_token
 from django.http import JsonResponse
-from phonenumber_field.serializerfields import PhoneNumberField
 
 
 class UserSerializer(serializers.ModelSerializer):
     #email = serializers.EmailField(source='user.email',required=True,validators=[UniqueValidator(queryset=User.objects.all())])
     #username = serializers.CharField(source='user.username',required=True,validators=[UniqueValidator(queryset=User.objects.all())])
-    phone_number = PhoneNumberField(source='profile.phone_number',allow_blank=True)
+
     gender_choices = (('M','Male'),
                         ('F','Female'),
                         ('O','Others')
@@ -33,7 +32,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'username', 'email', 'password','phone_number','gender','dob','last_location','prefered_radius')
+        fields = ('id', 'username', 'email', 'password','gender','dob','last_location','prefered_radius')
 
 
     def to_representation(self, instance):
