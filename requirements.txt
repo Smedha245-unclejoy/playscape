@@ -14,3 +14,4 @@ bleach==1.4.3
 psycopg2==2.7.4
 pystache==0.5.3
 static==1.0.2
+rest_framework_social_oauth2==1.1.0
