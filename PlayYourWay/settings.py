@@ -185,3 +185,4 @@ ENV_PATH = os.path.abspath(os.path.dirname(__file__))
 MEDIA_ROOT = os.path.join(ENV_PATH, 'media/')
 MEDIA_URL = '/media/'
 django_heroku.settings(locals())
+GDAL_LIBRARY_PATH = config('GDAL_LIBRARY_PATH')
