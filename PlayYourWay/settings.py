@@ -87,10 +87,17 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'social_django.context_processors.backends',
                 'social_django.context_processors.login_redirect',
+                'django.core.context_processors.static',
             ],
         },
     },
 ]
+
+STATICFILES_FINDERS = (
+     'django.contrib.staticfiles.finders.FileSystemFinder',
+     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+     'compressor.finders.CompressorFinder',
+)
 
 WSGI_APPLICATION = 'PlayYourWay.wsgi.application'
 
