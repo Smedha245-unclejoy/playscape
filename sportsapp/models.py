@@ -10,7 +10,6 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 
 class Profile(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE)
-    phone_number = PhoneNumberField()
     gender_choices = (('M','Male'),
                         ('F','Female'),
                         ('O','Others')
