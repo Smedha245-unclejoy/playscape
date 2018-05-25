@@ -35,7 +35,7 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = ['playscape.herokuapp.com']
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "playscape.settings")
+#os.environ.setdefault("DJANGO_SETTINGS_MODULE", "playscape.settings")
 
 application = get_wsgi_application()
 application = DjangoWhiteNoise(application)
