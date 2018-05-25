@@ -2,6 +2,7 @@ from django.db import models
 from django.db.models.fields import DateField
 from django.contrib.auth.models import User
 from django.contrib.gis.db import models as gis_models
+from django.contrib.gis.db.models.manager import GeoManager
 from django.core.validators import MinValueValidator, MaxValueValidator
 
 
@@ -18,4 +19,4 @@ class Profile(models.Model):
     dob = models.DateField()
     last_location = gis_models.PointField(max_length=40, null=True)
     prefered_radius = models.IntegerField(default=5, help_text="in kilometers")
-    objects = gis_models.GeoManager()
+    objects = GeoManager()
