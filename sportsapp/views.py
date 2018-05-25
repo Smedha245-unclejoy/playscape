@@ -7,7 +7,7 @@ from sportsapp.serializers import UserSerializer,LoginSerializer,PasswordResetSe
 from django.contrib.gis.geos import Point
 from django.shortcuts import get_object_or_404
 from django.db.models import F
-from django.contrib.gis.measure import D
+from django.contrib.gis.measure import Distance
 from rest_framework.pagination import LimitOffsetPagination
 #from rest_framework.authtoken.models import Token
 from sportsapp.permissions import IsAuthenticatedOrCreate
@@ -83,16 +83,16 @@ class Login(APIView):
 class NearbyUserList(viewsets.ViewSet):
 
     @staticmethod
-    def list(request, username, current_latitude, current_longitiude) -> Response:
+    def list(request, username, current_latitude, current_longitude) -> Response:
         paginator = LimitOffsetPagination()
         paginator.max_limit = 250
         paginator.default_limit = 20
         user = get_object_or_404(User, username=username)
-        user_location = Point(float(current_longitiude), float(current_latitude))
+        user_location = Point(float(current_longitude), float(current_latitude))
         users = paginator.paginate_queryset(Users.objects.filter(
             last_location__distance_lte=(
             user_location,
-            D(km=min(user.prefered_radius, F('prefered_radius'))))
+            Distance(km=min(user.prefered_radius, F('prefered_radius'))))
            ).distance(user_location).order_by('distance'))
 
         return Response(
