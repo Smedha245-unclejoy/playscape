@@ -14,6 +14,9 @@ import os
 import django_heroku
 import dj_database_url
 from decouple import config
+from django.core.wsgi import get_wsgi_application
+from whitenoise.django import DjangoWhiteNoise
+
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -32,7 +35,10 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = ['playscape.herokuapp.com']
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "playscape.settings")
 
+application = get_wsgi_application()
+application = DjangoWhiteNoise(application)
 
 # Application definition
 
@@ -175,7 +181,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
