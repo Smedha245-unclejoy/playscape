@@ -111,10 +111,7 @@ WSGI_APPLICATION = 'PlayYourWay.wsgi.application'
 #    'CONN_MAX_AGE': 500,
 #}
 DATABASES = {
-    'default':dj_database_url.config(
-         default=config('DATABASE_URL')
-         )
-
+    'default':dj_database_url.config('DATABASE_URL')
 }
 DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
 
