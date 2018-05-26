@@ -32,13 +32,13 @@ SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
-DEBUG = config('DEBUG', default=False, cast=bool)
+DEBUG = config('DEBUG', default=True, cast=bool)
 
-ALLOWED_HOSTS = ['playscape.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1','playscape.herokuapp.com']
 #os.environ.setdefault("DJANGO_SETTINGS_MODULE", "playscape.settings")
 
-application = get_wsgi_application()
-application = DjangoWhiteNoise(application)
+#application = get_wsgi_application()
+#application = DjangoWhiteNoise(application)
 
 # Application definition
 
@@ -96,7 +96,6 @@ TEMPLATES = [
 STATICFILES_FINDERS = (
      'django.contrib.staticfiles.finders.FileSystemFinder',
      'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-     'compressor.finders.CompressorFinder',
 )
 
 WSGI_APPLICATION = 'PlayYourWay.wsgi.application'
@@ -188,14 +187,13 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
-
-STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = '/static/'
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
-STATICFILES_STORAGE = 'whitenoise.storage.ManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 #For storing images and other files
 ENV_PATH = os.path.abspath(os.path.dirname(__file__))
 MEDIA_ROOT = os.path.join(ENV_PATH, 'media/')
