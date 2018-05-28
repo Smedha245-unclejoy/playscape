@@ -20,4 +20,4 @@ class Post(models.Model):
 
 class PostImage(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    image = models.FileField(blank=True,upload_to=settings.MEDIA_ROOT)
+    image = models.FileField(blank=True,upload_to='images/')
