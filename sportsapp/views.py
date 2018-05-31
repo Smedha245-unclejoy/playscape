@@ -1,5 +1,6 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework import generics
 from rest_framework.parsers import JSONParser
 from django.contrib.auth import authenticate
 from rest_framework import status,viewsets,views
@@ -98,3 +99,16 @@ class NearbyUserList(viewsets.ViewSet):
             data={'entries': [x.to_dict() for x in users], 'limit': paginator.limit,
                   'offset': paginator.offset, 'overall_count': paginator.count},
             status=status.HTTP_200_OK)
+
+class AuthInfoUpdateView(generics.GenericAPIView):
+    permission_classes = (IsAuthenticatedOrCreate,)
+    serializer_class = UserSerializer
+    lookup_field = 'email'
+    queryset = User.objects.all()
+
+    def put(self, request, *args, **kwargs):
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
