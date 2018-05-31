@@ -31,23 +31,11 @@ class UserCreate(APIView):
                 #token = Token.objects.create(user=user)#creates token
                 json = serializer.data  #all user data
                 #json['token'] = token.key  #all adding token in the to be returned json data
-                application_object = Application.objects.create(user=user, client_type=Application.CLIENT_CONFIDENTIAL,
-                                   authorization_grant_type=Application.GRANT_PASSWORD,name=user)
                 #json['client_id'] = application_object.client_id
                 #json['client_secret'] = application_object.client_secret
                 return Response(json, status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    def patch(request):
-        if request.method == 'PATCH':
-            serializer = UserSerializer(request.user, data=request.DATA, partial=True)
-            if serializer.is_valid():
-                user_entry = serializer.save()
-                if user:
-                    json = serializer.data
-                return Response(status=status.HTTP_201_CREATED)
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class ForgotPassword(APIView):
