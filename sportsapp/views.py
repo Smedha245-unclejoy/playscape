@@ -44,8 +44,10 @@ class UserCreate(APIView):
             serializer = UserSerializer(request.user, data=request.DATA, partial=True)
             if serializer.is_valid():
                 user_entry = serializer.save()
-
-    return Response(status=status.HTTP_201_CREATED)
+                if user:
+                    json = serializer.data
+                return Response(status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class ForgotPassword(APIView):
