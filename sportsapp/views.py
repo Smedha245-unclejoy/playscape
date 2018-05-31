@@ -100,13 +100,13 @@ class NearbyUserList(viewsets.ViewSet):
                   'offset': paginator.offset, 'overall_count': paginator.count},
             status=status.HTTP_200_OK)
 
-class AuthInfoUpdateView(generics.GenericAPIView):
+class AuthInfoUpdateView(generics.UpdateAPIView):
     permission_classes = (IsAuthenticatedOrCreate,)
     serializer_class = UserSerializer
     lookup_field = 'email'
     queryset = User.objects.all()
 
-    def put(self, request, *args, **kwargs):
+    def patch(self, request, *args, **kwargs):
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
