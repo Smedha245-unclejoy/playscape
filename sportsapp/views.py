@@ -13,6 +13,7 @@ from rest_framework.pagination import LimitOffsetPagination
 #from rest_framework.authtoken.models import Token
 from sportsapp.permissions import IsAuthenticatedOrCreate
 from rest_framework.permissions import AllowAny
+from django.contrib.auth.models import User
 from oauth2_provider.models import Application
 from django.contrib.auth import get_user_model
 from django.contrib.auth.hashers import make_password
