@@ -24,7 +24,7 @@ class UserSerializer(serializers.ModelSerializer):
                         ('F','Female'),
                         ('O','Others')
                         )
-    gender = serializers.ChoiceField(source='profile.gender',choices=gender_choices)
+    user_gender = serializers.ChoiceField(source='profile.gender',choices=gender_choices)
     #dob = serializers.DateField(source='profile.dob')  # date in the format 1995-12-17:yyyy-mm-dd
     #posts = serializers.HyperlinkedRelatedField(many=True,read_only=True,view_name='post-detail')
     last_location = serializers.SerializerMethodField()
@@ -32,7 +32,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'username', 'email', 'password','gender','last_location','prefered_radius')
+        fields = ('id', 'name', 'email', 'password','user_gender','last_location','prefered_radius')
 
 
     def to_representation(self, instance):
