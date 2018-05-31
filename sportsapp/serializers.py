@@ -27,7 +27,7 @@ class UserSerializer(serializers.ModelSerializer):
     user_gender = serializers.ChoiceField(source='profile.gender',choices=gender_choices)
     #dob = serializers.DateField(source='profile.dob')  # date in the format 1995-12-17:yyyy-mm-dd
     #posts = serializers.HyperlinkedRelatedField(many=True,read_only=True,view_name='post-detail')
-    last_location = serializers.SerializerMethodField()
+    last_location = serializers.SerializerMethodField(required=False)
     prefered_radius = serializers.IntegerField()
 
     class Meta:
