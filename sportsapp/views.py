@@ -14,6 +14,7 @@ from rest_framework.pagination import LimitOffsetPagination
 from sportsapp.permissions import IsAuthenticatedOrCreate
 from rest_framework.permissions import AllowAny
 from django.contrib.auth.models import User
+from .models import Profile
 from oauth2_provider.models import Application
 from django.contrib.auth import get_user_model
 from django.contrib.auth.hashers import make_password
@@ -108,7 +109,8 @@ class AuthInfoUpdateView(generics.UpdateAPIView):
     queryset = User.objects.all()
 
     def patch(self, request, *args, **kwargs):
-        serializer = UserSerializer(data=request.data, partial=True)
+        profile = Profile.objects.get(user=request.user)
+        serializer = UserSerializer(profile,data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save(user=request.user)
             return Response(serializer.data)
