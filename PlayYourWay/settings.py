@@ -157,7 +157,6 @@ SOCIAL_AUTH_FACEBOOK_SCOPE = ['email','user_gender','user_friends','public_profi
 SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
     'fields': 'id,name, email'
 }
-AUTH_USER_MODEL='sportsapp.Profile'
 OAUTH2_PROVIDER = {
         'ACCESS_TOKEN_EXPIRE_SECONDS': 60 * 60 * 24,
  }

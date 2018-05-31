@@ -24,11 +24,11 @@ class UserSerializer(serializers.ModelSerializer):
                         ('F','Female'),
                         ('O','Others')
                         )
-    user_gender = serializers.ChoiceField(source='profile.gender',choices=gender_choices)
+    user_gender = serializers.ChoiceField(source='profile.user_gender',choices=gender_choices)
     #dob = serializers.DateField(source='profile.dob')  # date in the format 1995-12-17:yyyy-mm-dd
     #posts = serializers.HyperlinkedRelatedField(many=True,read_only=True,view_name='post-detail')
-    last_location = serializers.SerializerMethodField(required=False)
-    prefered_radius = serializers.IntegerField()
+    last_location = serializers.SerializerMethodField(required=False,source='profile.last_location')
+    prefered_radius = serializers.IntegerField(source='prefered_radius')
 
     class Meta:
         model = User
