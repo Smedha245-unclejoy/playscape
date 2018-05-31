@@ -109,7 +109,7 @@ class AuthInfoUpdateView(generics.UpdateAPIView):
 
     def patch(self, request, *args, **kwargs):
         lookup_field = 'email'
-        profile = User.objects.filter(user=request.user)
+        user = User.objects.filter(user=request.user)
         serializer = UserSerializer(user=profile,data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save(user=request.user)

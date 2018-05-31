@@ -20,3 +20,5 @@ class Profile(models.Model):
     last_location = gis_models.PointField(max_length=40, null=True)
     prefered_radius = models.IntegerField(default=5, help_text="in kilometers")
     objects = GeoManager()
+
+    REQUIRED_FIELDS = ['user', 'user.email']
