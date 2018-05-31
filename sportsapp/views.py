@@ -105,13 +105,12 @@ class NearbyUserList(viewsets.ViewSet):
 class AuthInfoUpdateView(generics.UpdateAPIView):
     permission_classes = (IsAuthenticatedOrCreate,)
     serializer_class = UserSerializer
-    lookup_field = 'email'
     queryset = User.objects.all()
 
     def patch(self, request, *args, **kwargs):
+        lookup_field = 'email'
         profile = User.objects.filter(user=request.user)
-
-        serializer = UserSerializer(profile.first_name,data=request.data, partial=True)
+        serializer = UserSerializer(user=profile,data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save(user=request.user)
             return Response(serializer.data)
