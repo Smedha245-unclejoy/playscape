@@ -155,9 +155,8 @@ SOCIAL_AUTH_FACEBOOK_SECRET = '7e10dadc3976fe17b5e26ab07d5c3078'
 # Define SOCIAL_AUTH_FACEBOOK_SCOPE to get extra permissions from facebook. Email is not sent by default, to get it, you must request the email permission:
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email','user_gender','user_friends','public_profile']
 SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
-    'fields': 'name, email,user_gender'
+    'fields': 'id,name, email'
 }
-AUTH_USER_MODEL = 'sportsapp.Profile'
 OAUTH2_PROVIDER = {
         'ACCESS_TOKEN_EXPIRE_SECONDS': 60 * 60 * 24,
  }

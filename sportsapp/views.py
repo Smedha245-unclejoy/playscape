@@ -39,6 +39,15 @@ class UserCreate(APIView):
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    def patch(request):
+        if request.method == 'PATCH':
+            serializer = UserSerializer(request.user, data=request.DATA, partial=True)
+            if serializer.is_valid():
+                user_entry = serializer.save()
+
+    return Response(status=status.HTTP_201_CREATED)
+
+
 class ForgotPassword(APIView):
     """
     Sends an email to the user to reset Password
