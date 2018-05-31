@@ -9,6 +9,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.hashers import make_password
 from oauth2_provider.settings import oauth2_settings
 from django.http import JsonResponse
+from django.contrib.gis.geos import fromstr
 from sportsapp.models import Profile
 from oauth2_provider.models import AccessToken, Application, RefreshToken
 from django.utils.timezone import now, timedelta
