@@ -19,7 +19,7 @@ from django.contrib.gis.db.models.fields import GeometryField
 from django.contrib.gis.serializers.geojson import Serializer
 
 
-class UserSerializer(Serializer):
+class UserSerializer(serializers.ModelSerializer):
     #email = serializers.EmailField(source='user.email',required=True,validators=[UniqueValidator(queryset=User.objects.all())])
     #username = serializers.CharField(source='user.username',required=True,validators=[UniqueValidator(queryset=User.objects.all())])
 
