@@ -39,9 +39,9 @@ class UserSerializer(Serializer):
         fields = ('id', 'first_name', 'email', 'password','user_gender','prefered_radius')
 
 
-    def last_location(self, instance):
-        ret = super(UserSerializer,self).last_location(instance)
-        pnt = fromstr(ret.pop('last_location'))
+    def last_location(self, instance,validated_data):
+
+        pnt = validated_data.pop('last_location')
         ret['last_location'] = {'longitude': pnt.coords[0], 'latitude': pnt.coords[1]}
         return ret
 
