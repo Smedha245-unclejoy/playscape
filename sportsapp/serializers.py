@@ -33,6 +33,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
+        geo_field = 'point'
         fields = ('id', 'first_name', 'email', 'password','user_gender','last_location','prefered_radius')
 
 
