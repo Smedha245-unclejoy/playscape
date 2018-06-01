@@ -33,12 +33,12 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        geo_field = 'point'
-        fields = ('id', 'first_name', 'email', 'password','user_gender','last_location','prefered_radius')
+        geo_field = 'last_location'
+        fields = ('id', 'first_name', 'email', 'password','user_gender','prefered_radius')
 
 
-    def get_last_location(self, obj):
-        ret = super(UserSerializer, self).get_last_location(obj)
+    def get_last_location(self, instance):
+        ret = super(UserSerializer, self).get_last_location(instance)
         pnt = fromstr(ret['last_location'])
         ret['last_location'] = {'longitude': pnt.coords[0], 'latitude': pnt.coords[1]}
         return ret
