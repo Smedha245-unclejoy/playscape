@@ -1,7 +1,7 @@
-from django.db import models
+
 #from django.db.models.fields import DateField
 from django.contrib.auth.models import User
-from django.contrib.gis.db import models as gis_models
+from django.contrib.gis.db import models
 from django.contrib.gis.db.models.manager import GeoManager
 from django.core.validators import MinValueValidator, MaxValueValidator
 
@@ -13,10 +13,9 @@ class Profile(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE)
     gender_choices = (('M','Male'),
                         ('F','Female'),
-                        ('O','Others')
-                        )
+                        ('O','Others'))
     user_gender = models.CharField(choices = gender_choices,max_length=1,null=True)
     #dob = models.DateField()
-    last_location = gis_models.PointField(max_length=40, null=True)
+    last_location = models.PointField(max_length=40, null=True)
     prefered_radius = models.IntegerField(default=5, help_text="in kilometers")
     objects = GeoManager()

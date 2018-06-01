@@ -110,7 +110,7 @@ class AuthInfoUpdateView(generics.UpdateAPIView):
 
     def patch(self, request, *args, **kwargs):
         serializer = UserSerializer(data=request.data)
-        instance=User.objects.filter(user=request.user.id)
+        instance=Profile.objects.filter(user=request.user.id)
         if serializer.is_valid():
             serializer.update(instance=instance,validated_data=serializer.data)
             return Response(serializer.data)

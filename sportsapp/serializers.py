@@ -15,8 +15,6 @@ from oauth2_provider.models import AccessToken, Application, RefreshToken
 from django.utils.timezone import now, timedelta
 from oauthlib.common import generate_token
 from django.http import JsonResponse
-from django.contrib.gis.db.models.fields import GeometryField
-from django.contrib.gis.serializers.geojson import Serializer
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -35,8 +33,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        geo_field = 'last_location'
-        fields = ('id', 'first_name', 'email', 'password','user_gender','prefered_radius')
+
 
 
     def last_location(self, instance,validated_data):
