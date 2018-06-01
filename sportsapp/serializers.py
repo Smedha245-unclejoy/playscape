@@ -15,9 +15,11 @@ from oauth2_provider.models import AccessToken, Application, RefreshToken
 from django.utils.timezone import now, timedelta
 from oauthlib.common import generate_token
 from django.http import JsonResponse
+from rest_framework_gis.fields import GeometryField
+from rest_framework_gis.serializers import GeoFeatureModelSerializer
 
 
-class UserSerializer(serializers.ModelSerializer):
+class UserSerializer(GeoFeatureModelSerializer):
     #email = serializers.EmailField(source='user.email',required=True,validators=[UniqueValidator(queryset=User.objects.all())])
     #username = serializers.CharField(source='user.username',required=True,validators=[UniqueValidator(queryset=User.objects.all())])
 
