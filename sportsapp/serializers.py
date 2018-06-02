@@ -14,13 +14,13 @@ from sportsapp.models import Profile
 from oauth2_provider.models import AccessToken, Application, RefreshToken
 from django.utils.timezone import now, timedelta
 from oauthlib.common import generate_token
-from rest_framework_gis.serializers import GeoModelSerializer
+from rest_framework_gis.serializers import GeoFeatureModelSerializer
 from rest_framework_gis import serializers as geo_serializers
 from rest_framework_gis.fields import GeometrySerializerMethodField
 from django.http import JsonResponse
 
 
-class UserSerializer(geo_serializers.GeoModelSerializer):
+class UserSerializer(GeoFeatureModelSerializer):
     #email = serializers.EmailField(source='user.email',required=True,validators=[UniqueValidator(queryset=User.objects.all())])
     #username = serializers.CharField(source='user.username',required=True,validators=[UniqueValidator(queryset=User.objects.all())])
 
@@ -39,8 +39,8 @@ class UserSerializer(geo_serializers.GeoModelSerializer):
         geo_field='last_location'
         fields = ('id', 'first_name', 'email', 'password','user_gender','prefered_radius')
 
-    def to_representation(self, instance):
-        ret = super(UserSerializer, self).to_representation(instance)
+    def get_last_location(self, instance):
+        ret = super(UserSerializer, self).get_last_location(instance)
         pnt = fromstr(ret['last_location'])
         ret['last_location'] = {'longitude': pnt.coords[0], 'latitude': pnt.coords[1]}
         return ret
