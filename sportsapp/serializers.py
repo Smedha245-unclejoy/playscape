@@ -20,7 +20,7 @@ from rest_framework_gis.fields import GeometrySerializerMethodField
 from django.http import JsonResponse
 
 
-class UserSerializer(gis_serializers.GeoModelSerializer):
+class UserSerializer(geo_serializers.GeoModelSerializer):
     #email = serializers.EmailField(source='user.email',required=True,validators=[UniqueValidator(queryset=User.objects.all())])
     #username = serializers.CharField(source='user.username',required=True,validators=[UniqueValidator(queryset=User.objects.all())])
 
