@@ -14,10 +14,12 @@ from sportsapp.models import Profile
 from oauth2_provider.models import AccessToken, Application, RefreshToken
 from django.utils.timezone import now, timedelta
 from oauthlib.common import generate_token
+from rest_framework_gis.serializers import GeoFeatureModelSerializer
+from rest_framework_gis.fields import GeometrySerializerMethodField
 from django.http import JsonResponse
 
 
-class UserSerializer(serializers.ModelSerializer):
+class UserSerializer(GeoFeatureModelSerializer):
     #email = serializers.EmailField(source='user.email',required=True,validators=[UniqueValidator(queryset=User.objects.all())])
     #username = serializers.CharField(source='user.username',required=True,validators=[UniqueValidator(queryset=User.objects.all())])
 
@@ -28,12 +30,13 @@ class UserSerializer(serializers.ModelSerializer):
     user_gender = serializers.ChoiceField(source='profile.user_gender',choices=gender_choices)
     #dob = serializers.DateField(source='profile.dob')  # date in the format 1995-12-17:yyyy-mm-dd
     #posts = serializers.HyperlinkedRelatedField(many=True,read_only=True,view_name='post-detail')
-    last_location = serializers.SerializerMethodField(required=False,source='profile.last_location')
+    last_location = serializers.GeometrySerializerMethodField(required=False,source='profile.last_location')
     prefered_radius = serializers.IntegerField(source='profile.prefered_radius',default=5)
 
     class Meta:
         model = User
-        fields = ('id', 'first_name', 'email', 'password','last_location','user_gender','prefered_radius')
+        geo_field = 'last_location'
+        fields = ('id', 'first_name', 'email', 'password','user_gender','prefered_radius')
 
 
     def to_representation(self, instance):
