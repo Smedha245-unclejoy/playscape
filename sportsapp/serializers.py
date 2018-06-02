@@ -33,7 +33,7 @@ class UserSerializer(GeoFeatureModelSerializer):
     user_gender = serializers.ChoiceField(source='profile.user_gender',choices=gender_choices)
     #dob = serializers.DateField(source='profile.dob')  # date in the format 1995-12-17:yyyy-mm-dd
     #posts = serializers.HyperlinkedRelatedField(many=True,read_only=True,view_name='post-detail')
-    last_location = geo_serializers.GeometryField()
+    #last_location = geo_serializers.GeometryField()
     prefered_radius = serializers.IntegerField(source='profile.prefered_radius',default=5)
 
     def get_last_location(self, instance):
@@ -42,7 +42,7 @@ class UserSerializer(GeoFeatureModelSerializer):
 
     class Meta:
         model = User
-        geo_field='Profile.last_location'
+        geo_field='profile.last_location'
         id_field = False
         fields = ('id', 'first_name', 'email', 'password','user_gender','prefered_radius')
 
