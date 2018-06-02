@@ -15,7 +15,7 @@ from oauth2_provider.models import AccessToken, Application, RefreshToken
 from django.utils.timezone import now, timedelta
 from oauthlib.common import generate_token
 from rest_framework_gis.serializers import GeoFeatureModelSerializer
-from rest_framework_gis import serializers as geo_serializer
+from rest_framework_gis import serializers as geo_serializers
 from rest_framework_gis.fields import GeometrySerializerMethodField
 from django.http import JsonResponse
 
