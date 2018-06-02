@@ -20,7 +20,7 @@ from rest_framework_gis.fields import GeometrySerializerMethodField
 from django.http import JsonResponse
 
 
-class UserSerializer(GeoFeatureModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     #email = serializers.EmailField(source='user.email',required=True,validators=[UniqueValidator(queryset=User.objects.all())])
     #username = serializers.CharField(source='user.username',required=True,validators=[UniqueValidator(queryset=User.objects.all())])
 
@@ -38,6 +38,8 @@ class UserSerializer(GeoFeatureModelSerializer):
         model = User
         geo_field = 'last_location'
         fields = ('id', 'first_name', 'email', 'password','user_gender','prefered_radius')
+
+    
 
 
 
