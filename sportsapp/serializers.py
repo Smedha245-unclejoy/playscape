@@ -59,6 +59,7 @@ class UserSerializer(GeoFeatureModelSerializer):
         return super(UserSerializer, self).update(instance, validated_data)
 
     def get_last_location(self, instance):
+        print(instance)
         return Point(instance.last_location.lat, instance.last_location.lon)
 
     def update_or_create_profile(self, user, profile_data):
