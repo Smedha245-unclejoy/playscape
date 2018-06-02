@@ -36,9 +36,13 @@ class UserSerializer(GeoFeatureModelSerializer):
     last_location = geo_serializers.GeometryField()
     prefered_radius = serializers.IntegerField(source='profile.prefered_radius',default=5)
 
+    def get_last_location(self, instance):
+        print(instance)
+        return Point(instance.last_location.lat, instance.last_location.lon)
+
     class Meta:
         model = User
-        geo_field="last_location"
+        geo_field='Profile.last_location'
         id_field = False
         fields = ('id', 'first_name', 'email', 'password','user_gender','prefered_radius')
 
@@ -59,9 +63,6 @@ class UserSerializer(GeoFeatureModelSerializer):
         self.update_or_create_profile(instance, profile_data)
         return super(UserSerializer, self).update(instance, validated_data)
 
-    def get_last_location(self, instance):
-        print(instance)
-        return Point(instance.last_location.lat, instance.last_location.lon)
 
     def update_or_create_profile(self, user, profile_data):
         # This always creates a Profile if the User is missing one;
