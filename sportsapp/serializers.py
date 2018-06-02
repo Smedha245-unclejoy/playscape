@@ -41,10 +41,7 @@ class UserSerializer(GeoFeatureModelSerializer):
         fields = ('id', 'first_name', 'email', 'password','user_gender','prefered_radius')
 
     def get_last_location(self, instance):
-        #ret = super(UserSerializer, self).get_last_location(instance)
-        pnt = fromstr(instance.last_location)
-        ret['last_location'] = {'longitude': pnt.coords[0], 'latitude': pnt.coords[1]}
-        return ret
+        return Point(instance.last_location.lat, instance.last_location.lon)
 
 
 #By overriding create and update any put or post delete will be in sync with the profile table
