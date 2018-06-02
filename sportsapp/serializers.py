@@ -35,14 +35,15 @@ class UserSerializer(GeoFeatureModelSerializer):
     last_location = GeometrySerializerMethodField(required=False,source='profile.last_location')
     prefered_radius = serializers.IntegerField(source='profile.prefered_radius',default=5)
 
+    def get_last_location(self, instance):
+        return Point(instance.last_location.lat, instance.last_location.lon)
+
     class Meta:
         model = User
-        geo_field='last_location'
+        geo_field="last_location"
         id_field = False
         fields = ('id', 'first_name', 'email', 'password','user_gender','prefered_radius')
 
-    def get_last_location(self, instance):
-        return Point(instance.last_location.lat, instance.last_location.lon)
 
 
 #By overriding create and update any put or post delete will be in sync with the profile table
