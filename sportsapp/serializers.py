@@ -37,6 +37,7 @@ class UserSerializer(GeoFeatureModelSerializer):
     class Meta:
         model = User
         geo_field='last_location'
+        id_field = False
         fields = ('id', 'first_name', 'email', 'password','user_gender','prefered_radius')
 
     def get_last_location(self, instance):
