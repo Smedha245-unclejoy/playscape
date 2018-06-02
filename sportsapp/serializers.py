@@ -36,7 +36,8 @@ class UserSerializer(geo_serializers.GeoModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'first_name', 'email', 'password','last_location','user_gender','prefered_radius')
+        geo_field='last_location'
+        fields = ('id', 'first_name', 'email', 'password','user_gender','prefered_radius')
 
     def to_representation(self, instance):
         ret = super(UserSerializer, self).to_representation(instance)
