@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from django.conf import settings
+from django.contrib.gis.geos import Point
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.models import User
 from django.contrib.sites.shortcuts import get_current_site
