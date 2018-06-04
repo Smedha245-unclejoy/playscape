@@ -44,7 +44,7 @@ class UserSerializer(GeoFeatureModelSerializer):
 
     class Meta:
         model = User
-        geo_field='[profile.last_location'
+        geo_field='profile.last_location'
         id_field = False
         fields = ('id', 'first_name', 'email', 'password','last_location','user_gender','prefered_radius')
 
