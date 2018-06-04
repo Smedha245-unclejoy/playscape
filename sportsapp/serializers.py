@@ -39,7 +39,7 @@ class UserSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         ret = super(UserSerializer, self).to_representation(instance)
         pnt = ret['last_location']
-        ret['last_location'] = {'longitude': pnt.coords[0], 'latitude': pnt.coords[1]}
+        ret['last_location'] = {'longitude': pnt[0], 'latitude': pnt[1]}
         return ret
 
     class Meta:
