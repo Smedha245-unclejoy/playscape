@@ -117,6 +117,8 @@ DATABASES = {
      'default' : dj_database_url.config(default=os.getenv('DATABASE_URL'))
 }
 DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
+DATABASES['default']['NAME'] = 'postgres'
+DATABASES['default']['USER'] = 'postgres'
 
 
 REST_FRAMEWORK = {
