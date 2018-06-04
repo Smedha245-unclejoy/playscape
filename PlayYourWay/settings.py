@@ -115,7 +115,7 @@ WSGI_APPLICATION = 'PlayYourWay.wsgi.application'
 #DATABASES['default'] = dj_database_url.config()
 DATABASES = {
      'default' : dj_database_url.config(default=os.getenv('DATABASE_URL'))
-     "ENGINE": "django.contrib.gis.db.backends.postgis",
+     'ENGINE': 'django.contrib.gis.db.backends.postgis',
 }
 DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
 DATABASES['default']['NAME'] = 'postgres'
