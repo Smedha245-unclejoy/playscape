@@ -123,8 +123,8 @@ DATABASES = {
     }
 }
 db_from_env = dj_database_url.config(default=os.getenv('DATABASE_URL'))
-DATABASES['default'].update(db_from_env)
-DATABASES['default']['ENGINE']='django.contrib.gis.db.backends.postgis'
+#DATABASES['default'].update(db_from_env)
+#DATABASES['default']['ENGINE']='django.contrib.gis.db.backends.postgis'
 #DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
 #DATABASES['default']['NAME'] = 'postgres'
 #DATABASES['default']['USER'] = 'postgres'
