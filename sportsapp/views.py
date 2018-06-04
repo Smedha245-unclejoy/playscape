@@ -109,9 +109,9 @@ class AuthInfoUpdateView(generics.UpdateAPIView):
     lookup_field = 'email'
 
     def patch(self, request, *args, **kwargs):
-        serializer = UserSerializer(data=request.data)
+        instance=get_object_or_404(User,email=request.data['email'])
+        serializer = UserSerializer(instance=instance,data=request.data)
         if serializer.is_valid():
-            instance=get_object_or_404(User,email=serializer.data['email'])
-            serializer.save(instance=instance,validated_data=serializer.validated_data)
+            #serializer.save(instance=instance,validated_data=serializer.validated_data)
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
