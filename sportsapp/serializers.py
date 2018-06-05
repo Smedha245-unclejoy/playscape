@@ -36,7 +36,7 @@ class UserSerializer(serializers.ModelSerializer):
     user_gender = serializers.ChoiceField(source='profile.user_gender',choices=gender_choices)
     #dob = serializers.DateField(source='profile.dob')  # date in the format 1995-12-17:yyyy-mm-dd
     #posts = serializers.HyperlinkedRelatedField(many=True,read_only=True,view_name='post-detail')
-    last_location = PointFieldSerializer(data={'last_loaction':last_location})
+    last_location = PointFieldSerializer(source='profile.last_location')
     prefered_radius = serializers.IntegerField(source='profile.prefered_radius',default=5)
 
 
