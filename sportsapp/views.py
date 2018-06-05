@@ -4,7 +4,7 @@ from rest_framework import generics
 from rest_framework.parsers import JSONParser
 from django.contrib.auth import authenticate
 from rest_framework import status,viewsets,views
-from sportsapp.serializers import UserSerializer,LoginSerializer,PasswordResetSerializer
+from sportsapp.serializers import UserSerializer,LoginSerializer,PasswordResetSerializer,PointFieldSerializer
 from django.contrib.gis.geos import Point
 from django.shortcuts import get_object_or_404
 from django.db.models import F
@@ -110,7 +110,8 @@ class AuthInfoUpdateView(generics.UpdateAPIView):
 
     def patch(self, request, *args, **kwargs):
         instance=get_object_or_404(User,email=request.data['email'])
-        serializer = UserSerializer(data={'last_location':request.data['last_location'],'prefered_radius':request.data['prefered_radius'],
+        last_location=PointFieldSerializer(data={'last_location':request.data['last_location']})
+        serializer = UserSerializer(data={'last_location':last_location,'prefered_radius':request.data['prefered_radius'],
                                          'user_gender':request.data['user_gender'],'first_name':request.data['first_name'],'email':request.data['email'],
                                          'password':request.data['password']})
         if serializer.is_valid():
