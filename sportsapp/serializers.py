@@ -21,7 +21,11 @@ from rest_framework_gis.fields import GeometrySerializerMethodField
 from django.http import JsonResponse
 
 
+class ProfileSerializer(serializers.ModelSerializer):
 
+    class Meta:
+        model = Profile
+        fields= '__all__'
 class UserSerializer(serializers.ModelSerializer):
     #email = serializers.EmailField(source='user.email',required=True,validators=[UniqueValidator(queryset=User.objects.all())])
     #username = serializers.CharField(source='user.username',required=True,validators=[UniqueValidator(queryset=User.objects.all())])
@@ -72,8 +76,7 @@ class UserSerializer(serializers.ModelSerializer):
         last_location=validated_data.get('last_location')
         # This always creates a Profile if the User is missing one;
         # change the logic here if that's not right for your app
-        Profile.objects.update_or_create(user=user,last_location=validated_data.get('last_location','mnm'),prefered_radius=validated_data.get('prefered_radius','5'),
-                                         user_gender=validated_data.get('user_gender','Male'))
+        Profile.objects.update_or_create(user=user,defaults=profile_data)
 
 
 
