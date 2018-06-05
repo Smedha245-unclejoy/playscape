@@ -69,6 +69,16 @@ class UserSerializer(serializers.ModelSerializer):
 
 class PointFieldSerializer(serializers.Serializer):
     last_location = PointField(required=False,source='profile.last_location')
+    class Meta:
+        model =Profile
+        fields = ('last_location')
+    def to_representation(self, instance):
+        ret = super(UserSerializer, self).to_representation(instance)
+        pnt = fromstr(ret['last_location'])
+        ret['last_location'] = {'longitude': pnt.coords[0], 'latitude': pnt.coords[1]}
+        return ret
+
+
 
 class LoginSerializer(serializers.ModelSerializer):
     def get_token_json(access_token):
