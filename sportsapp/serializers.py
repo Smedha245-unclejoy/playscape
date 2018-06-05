@@ -42,7 +42,7 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('id', 'first_name', 'email', 'password','last_location','user_gender','prefered_radius')
 
-    def to_representation(self, instance, validated_data):
+    def to_representation(self, instance):
         ret = super(UserSerializer, self).data
         pnt = fromstr(ret['last_location'])
         ret['last_location'] = {'longitude': pnt.coords[0], 'latitude': pnt.coords[1]}
