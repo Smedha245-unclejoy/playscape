@@ -22,7 +22,7 @@ from rest_framework_gis.fields import GeometrySerializerMethodField
 from django.http import JsonResponse
 
 class PointFieldSerializer(serializers.Serializer):
-    point = PointField(required=False)
+    last_location = PointField(required=False)
 
 
 class UserSerializer(serializers.ModelSerializer):
