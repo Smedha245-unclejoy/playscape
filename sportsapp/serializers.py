@@ -68,7 +68,7 @@ class UserSerializer(serializers.ModelSerializer):
         # This always creates a Profile if the User is missing one;
         # change the logic here if that's not right for your app
         Profile.objects.update_or_create(user=user,last_location=validated_data.get('last_location','mnm'),prefered_radius=validated_data.get('prefered_radius','5'),
-                                         user_gender=validated_data.get('user_gender','M'))
+                                         user_gender=validated_data.get('user_gender','Male'))
 
 
 
