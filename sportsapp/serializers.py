@@ -33,7 +33,7 @@ class UserSerializer(serializers.ModelSerializer):
     user_gender = serializers.ChoiceField(source='profile.user_gender',choices=gender_choices)
     #dob = serializers.DateField(source='profile.dob')  # date in the format 1995-12-17:yyyy-mm-dd
     #posts = serializers.HyperlinkedRelatedField(many=True,read_only=True,view_name='post-detail')
-    last_location = serializers.ModelField(model_field=Profile()._meta.get_field('last_location'))
+    last_location = serializers.SerializerMethodField(required=False,source='profile.last_location')
     prefered_radius = serializers.IntegerField(source='profile.prefered_radius',default=5)
 
 
@@ -41,6 +41,13 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id', 'first_name', 'email', 'password','last_location','user_gender','prefered_radius')
+
+    def to_representation(self, instance):
+        ret = super(UserSerializer, self).to_representation(instance)
+        pnt = fromstr(ret['last_location'])
+        ret['last_location'] = {'longitude': pnt.coords[0], 'latitude': pnt.coords[1]}
+        return ret
+
 
 
 #By overriding create and update any put or post delete will be in sync with the profile table
