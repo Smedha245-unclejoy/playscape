@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.conf import settings
-from django.contrib.gis.geos import Point
+from django.contrib.gis.db.models.fields import PointField
 from django.contrib.gis.geos import GEOSGeometry
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.models import User
@@ -22,7 +22,7 @@ from rest_framework_gis.fields import GeometrySerializerMethodField
 from django.http import JsonResponse
 
 
-class UserSerializer(GeoFeatureModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     #email = serializers.EmailField(source='user.email',required=True,validators=[UniqueValidator(queryset=User.objects.all())])
     #username = serializers.CharField(source='user.username',required=True,validators=[UniqueValidator(queryset=User.objects.all())])
 
@@ -33,16 +33,15 @@ class UserSerializer(GeoFeatureModelSerializer):
     user_gender = serializers.ChoiceField(source='profile.user_gender',choices=gender_choices)
     #dob = serializers.DateField(source='profile.dob')  # date in the format 1995-12-17:yyyy-mm-dd
     #posts = serializers.HyperlinkedRelatedField(many=True,read_only=True,view_name='post-detail')
-    last_location = geo_serializers.GeometryField(source='profile.last_location')
+    last_location = PointFieldSerializer(data={'last_loaction':last_location})
     prefered_radius = serializers.IntegerField(source='profile.prefered_radius',default=5)
 
 
     class Meta:
         model = User
-        geo_field='last_location'
-        fields = ('id', 'first_name', 'email', 'password','user_gender','prefered_radius')
+        fields = ('id', 'first_name', 'email', 'password','last_location','user_gender','prefered_radius')
 
-    
+
 
 
 
@@ -67,6 +66,9 @@ class UserSerializer(GeoFeatureModelSerializer):
         # This always creates a Profile if the User is missing one;
         # change the logic here if that's not right for your app
         Profile.objects.update_or_create(user=user, defaults=profile_data)
+
+class PointFieldSerializer(serializers.Serializer):
+    last_location = PointField(required=False,source='profile.last_location')
 
 class LoginSerializer(serializers.ModelSerializer):
     def get_token_json(access_token):
