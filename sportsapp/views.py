@@ -120,8 +120,8 @@ class SelfCreateProfile(APIView):
     permission_classes = (IsAuthenticatedOrCreate,)
     serializer_class = ProfileSerializer
     def post(self, request, format='json'):
-        user=request.user.id
-        serializer = ProfileSerializer(user_id=user,data=request.data)
+        request.data['user']=request.user
+        serializer = ProfileSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
