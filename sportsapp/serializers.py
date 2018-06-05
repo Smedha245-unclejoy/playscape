@@ -22,7 +22,7 @@ from rest_framework_gis.fields import GeometrySerializerMethodField
 from django.http import JsonResponse
 
 
-class UserSerializer(serializers.ModelSerializer):
+class UserSerializer(GeoFeatureModelSerializer):
     #email = serializers.EmailField(source='user.email',required=True,validators=[UniqueValidator(queryset=User.objects.all())])
     #username = serializers.CharField(source='user.username',required=True,validators=[UniqueValidator(queryset=User.objects.all())])
 
@@ -39,7 +39,8 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'first_name', 'email', 'password','last_location','user_gender','prefered_radius')
+        geo_field='last_location'
+        fields = ('id', 'first_name', 'email', 'password','user_gender','prefered_radius')
 
     def to_representation(self, instance):
         ret = super(UserSerializer, self).to_representation(instance)
