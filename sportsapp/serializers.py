@@ -1,7 +1,6 @@
 from rest_framework import serializers
 from django.conf import settings
 from django.contrib.gis.geos import GEOSGeometry
-from drf_extra_fields.geo_fields import PointField
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.models import User
 from django.contrib.sites.shortcuts import get_current_site
@@ -21,8 +20,6 @@ from rest_framework_gis import serializers as geo_serializers
 from rest_framework_gis.fields import GeometrySerializerMethodField
 from django.http import JsonResponse
 
-class PointFieldSerializer(serializers.Serializer):
-    last_location = PointField(required=False)
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -36,18 +33,14 @@ class UserSerializer(serializers.ModelSerializer):
     user_gender = serializers.ChoiceField(source='profile.user_gender',choices=gender_choices)
     #dob = serializers.DateField(source='profile.dob')  # date in the format 1995-12-17:yyyy-mm-dd
     #posts = serializers.HyperlinkedRelatedField(many=True,read_only=True,view_name='post-detail')
-    last_locationb=serializers.SerializerMethodField(required=False)
-    last_location = PointFieldSerializer(source='profile.last_location',data={'last_location':last_locationb})
+    last_location = serializers.ModelField(model_field=Profile()._meta.get_field('last_location'))
     prefered_radius = serializers.IntegerField(source='profile.prefered_radius',default=5)
 
 
-    def get_last_locationb(self,validated_data):
-        last_locationb=self.context.get('view').request.data['last_location']
-        return last_locationb
 
     class Meta:
         model = User
-        fields = ('id', 'first_name', 'email', 'password','last_location','user_gender','prefered_radius','last_locationb')
+        fields = ('id', 'first_name', 'email', 'password','last_location','user_gender','prefered_radius')
 
 
 #By overriding create and update any put or post delete will be in sync with the profile table
