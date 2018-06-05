@@ -121,7 +121,7 @@ class SelfCreateProfile(APIView):
     serializer_class = ProfileSerializer
     def post(self, request, format='json'):
         user=request.user.id
-        serializer = ProfileSerializer(user=user,data=request.data)
+        serializer = ProfileSerializer(user_id=user,data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
