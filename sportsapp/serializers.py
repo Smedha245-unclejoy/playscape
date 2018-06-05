@@ -21,6 +21,17 @@ from rest_framework_gis import serializers as geo_serializers
 from rest_framework_gis.fields import GeometrySerializerMethodField
 from django.http import JsonResponse
 
+class PointFieldSerializer(serializers.Serializer):
+    last_location = PointField(required=False,source='profile.last_location')
+    class Meta:
+        model =Profile
+        fields = ('last_location')
+    def to_representation(self, instance):
+        ret = super(UserSerializer, self).to_representation(instance)
+        pnt = fromstr(ret['last_location'])
+        ret['last_location'] = {'longitude': pnt.coords[0], 'latitude': pnt.coords[1]}
+        return ret
+
 
 class UserSerializer(serializers.ModelSerializer):
     #email = serializers.EmailField(source='user.email',required=True,validators=[UniqueValidator(queryset=User.objects.all())])
@@ -66,17 +77,6 @@ class UserSerializer(serializers.ModelSerializer):
         # This always creates a Profile if the User is missing one;
         # change the logic here if that's not right for your app
         Profile.objects.update_or_create(user=user, defaults=profile_data)
-
-class PointFieldSerializer(serializers.Serializer):
-    last_location = PointField(required=False,source='profile.last_location')
-    class Meta:
-        model =Profile
-        fields = ('last_location')
-    def to_representation(self, instance):
-        ret = super(UserSerializer, self).to_representation(instance)
-        pnt = fromstr(ret['last_location'])
-        ret['last_location'] = {'longitude': pnt.coords[0], 'latitude': pnt.coords[1]}
-        return ret
 
 
 
