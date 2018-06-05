@@ -4,7 +4,7 @@ from rest_framework import generics
 from rest_framework.parsers import JSONParser
 from django.contrib.auth import authenticate
 from rest_framework import status,viewsets,views
-from sportsapp.serializers import UserSerializer,LoginSerializer,PasswordResetSerializer
+from sportsapp.serializers import UserSerializer,LoginSerializer,PasswordResetSerializer,ProfileSerializer
 from django.contrib.gis.geos import Point
 from django.shortcuts import get_object_or_404
 from django.db.models import F
