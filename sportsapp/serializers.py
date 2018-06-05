@@ -41,7 +41,7 @@ class UserSerializer(serializers.ModelSerializer):
     prefered_radius = serializers.IntegerField(source='profile.prefered_radius',default=5)
 
 
-    def get_last_location(self,validated_data):
+    def get_last_locationb(self,validated_data):
         last_locationb=self.context.get('view').request.data['last_location']
         return last_locationb
 
