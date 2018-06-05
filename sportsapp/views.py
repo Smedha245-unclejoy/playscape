@@ -106,10 +106,10 @@ class AuthInfoUpdateView(generics.UpdateAPIView):
     permission_classes = (IsAuthenticatedOrCreate,)
     serializer_class = UserSerializer
     queryset = User.objects.all()
-    lookup_field = 'email'
+    lookup_field = 'user'
 
     def patch(self, request, *args, **kwargs):
-        instance=get_object_or_404(User,email=request.data['email'])
+        instance=get_object_or_404(Profile,user=request.user)
         serializer = UserSerializer(instance=instance,data=request.data)
         if serializer.is_valid():
             serializer.update(instance=instance,validated_data=serializer.data)
