@@ -110,9 +110,9 @@ class AuthInfoUpdateView(generics.UpdateAPIView):
 
     def patch(self, request, *args, **kwargs):
         instance=get_object_or_404(User,email=request.data['email'])
-        serializer = UserSerializer(data={'last_location'=request.data['last_location'],'prefered_radius'=request.data['prefered_radius'],
-                                         'user_gender'=request.data['user_gender'],'first_name'=request.data['first_name'],'email'=request.data['email']
-                                         'password'=request.data['password']})
+        serializer = UserSerializer(data={'last_location':request.data['last_location'],'prefered_radius':request.data['prefered_radius'],
+                                         'user_gender':request.data['user_gender'],'first_name':request.data['first_name'],'email':request.data['email'],
+                                         'password':request.data['password']})
         if serializer.is_valid():
             serializer.update(instance=instance,validated_data=serializer.data)
             return Response(serializer.data)
