@@ -112,6 +112,6 @@ class AuthInfoUpdateView(generics.UpdateAPIView):
         instance=get_object_or_404(User,email=request.data['email'])
         serializer = UserSerializer(instance=instance,data=request.data)
         if serializer.is_valid():
-            serializer.update(instance=instance,validated_data=serializer.validated_data)
+            serializer.update(instance=instance,validated_data=serializer.data)
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

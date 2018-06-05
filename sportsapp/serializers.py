@@ -36,17 +36,13 @@ class UserSerializer(serializers.ModelSerializer):
     user_gender = serializers.ChoiceField(source='profile.user_gender',choices=gender_choices)
     #dob = serializers.DateField(source='profile.dob')  # date in the format 1995-12-17:yyyy-mm-dd
     #posts = serializers.HyperlinkedRelatedField(many=True,read_only=True,view_name='post-detail')
-    last_location = PointFieldSerializer(source='profile.last_location',data={'last_location':last_location})
+    last_location = PointFieldSerializer(source='profile.last_location')
     prefered_radius = serializers.IntegerField(source='profile.prefered_radius',default=5)
 
 
     class Meta:
         model = User
         fields = ('id', 'first_name', 'email', 'password','last_location','user_gender','prefered_radius')
-
-
-
-
 
 
 #By overriding create and update any put or post delete will be in sync with the profile table
@@ -60,6 +56,7 @@ class UserSerializer(serializers.ModelSerializer):
         return user
 
     def update(self, instance, validated_data):
+        print(validated_data)
         profile_data = validated_data.pop('profile', None)
         self.update_or_create_profile(instance, profile_data)
         return super(UserSerializer, self).update(instance, validated_data)
@@ -68,7 +65,7 @@ class UserSerializer(serializers.ModelSerializer):
     def update_or_create_profile(self, user, profile_data):
         # This always creates a Profile if the User is missing one;
         # change the logic here if that's not right for your app
-        Profile.objects.update_or_create(user=user, defaults=profile_data)
+        Profile.objects.update_or_create(user=user, defaults=profile_data,)
 
 
 
