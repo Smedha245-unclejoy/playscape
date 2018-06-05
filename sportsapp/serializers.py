@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.conf import settings
-from django.contrib.gis.db.models.fields import PointField
 from django.contrib.gis.geos import GEOSGeometry
+from drf_extra_fields.geo_fields import PointField
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.models import User
 from django.contrib.sites.shortcuts import get_current_site
@@ -22,15 +22,7 @@ from rest_framework_gis.fields import GeometrySerializerMethodField
 from django.http import JsonResponse
 
 class PointFieldSerializer(serializers.Serializer):
-    last_location = PointField(source='profile.last_location')
-    class Meta:
-        model =Profile
-        fields = ('last_location')
-    def to_representation(self, instance):
-        ret = super(UserSerializer, self).to_representation(instance)
-        pnt = fromstr(ret['last_location'])
-        ret['last_location'] = {'longitude': pnt.coords[0], 'latitude': pnt.coords[1]}
-        return ret
+    point = PointField(required=False)
 
 
 class UserSerializer(serializers.ModelSerializer):
