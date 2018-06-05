@@ -41,7 +41,7 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id', 'first_name', 'email', 'password','last_location','user_gender','prefered_radius')
-        depth = 2
+        depth = 3
 
     def get_last_location(self, instance):
         ret = self.get_last_location(instance)
