@@ -58,14 +58,15 @@ class UserSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         print(validated_data)
         profile_data = validated_data.pop('profile', None)
-        self.update_or_create_profile(instance, profile_data)
+        self.update_or_create_profile(instance, profile_data,validated_data)
         return super(UserSerializer, self).update(instance, validated_data)
 
 
-    def update_or_create_profile(self, user, profile_data):
+    def update_or_create_profile(self, user, profile_data,validated_data):
         # This always creates a Profile if the User is missing one;
         # change the logic here if that's not right for your app
-        Profile.objects.update_or_create(user=user, defaults=profile_data,)
+        Profile.objects.update_or_create(user=user,last_location=validated_data.get('last_location','null'),prefered_radius=validated_data.get('prefered_radius','5'),
+                                         user_gender=validated_data.get('user_gender','male'),)
 
 
 
