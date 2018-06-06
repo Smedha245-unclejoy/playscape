@@ -49,15 +49,15 @@ class UserSerializer(serializers.ModelSerializer):
     def get_last_location(self, instance):
         ret = instance.profile.last_location
         pnt = fromstr(ret)
-        ret={'longitude': pnt.coords[0], 'latitude': pnt.coords[1]}
+        ret= {'longitude': pnt.coords[0], 'latitude': pnt.coords[1]}
         return ret
 
 
 #By overriding create and update any put or post delete will be in sync with the profile table
     def create(self, validated_data):
-        #last_location=validated_data['profile']['last_location']
-        #pnt=fromstr(last_location)
-        #validated_data['profile']['last_location']={'longitude': pnt.coords[0], 'latitude': pnt.coords[1]}
+        last_location=validated_data['profile']['last_location']
+        pnt=fromstr(last_location)
+        validated_data['profile']['last_location']={'longitude': pnt.coords[0], 'latitude': pnt.coords[1]}
         profile_data = validated_data.pop('profile', None)
         #self.password = make_password(self.password,salt=None,hasher='default')
         validated_data['password'] = make_password(validated_data['password'],salt=None,hasher='default')
