@@ -72,7 +72,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 
     def update_or_create_profile(self, user, profile_data,validated_data):
-        last_location=profile_data.get('last_location')
+        last_location=profile_data['last_location']
         pnt=fromstr(last_location)
         profile_data['last_location']= {'longitude': pnt.coords[0], 'latitude': pnt.coords[1]}
         # This always creates a Profile if the User is missing one;
