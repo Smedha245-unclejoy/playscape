@@ -56,6 +56,9 @@ class UserSerializer(serializers.ModelSerializer):
 
 #By overriding create and update any put or post delete will be in sync with the profile table
     def create(self, validated_data):
+        last_location=validated_data['profile']['last_location']
+        pnt=fromstr(last_location)
+        validated_data['profile']['last_location']={'longitude': pnt.coords[0], 'latitude': pnt.coords[1]}
         profile_data = validated_data.pop('profile', None)
         #self.password = make_password(self.password,salt=None,hasher='default')
         validated_data['password'] = make_password(validated_data['password'],salt=None,hasher='default')
@@ -72,9 +75,6 @@ class UserSerializer(serializers.ModelSerializer):
 
 
     def update_or_create_profile(self, user, profile_data,validated_data):
-        last_location=profile_data['last_location']
-        pnt=fromstr(last_location)
-        profile_data['last_location']= {'longitude': pnt.coords[0], 'latitude': pnt.coords[1]}
         # This always creates a Profile if the User is missing one;
         # change the logic here if that's not right for your app
         Profile.objects.update_or_create(user=user,defaults=profile_data)
