@@ -50,7 +50,7 @@ class UserSerializer(serializers.ModelSerializer):
         ret = instance
         pnt = fromstr(instance.profile.last_location)
         instance.profile.last_location={'longitude': pnt.coords[0], 'latitude': pnt.coords[1]}
-        return ret
+        return instance
 
 
 
