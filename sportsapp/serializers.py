@@ -47,8 +47,8 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ('id', 'first_name', 'email', 'password','last_location','user_gender','prefered_radius')
 
     def get_last_location(self, instance):
-        ret = instance
-        pnt = fromstr(ret['last_location'])
+        ret = self.get_last_location(instance)
+        pnt = fromstr(ret['profile']['last_location'])
         ret['last_location'] = {'longitude': pnt.coords[0], 'latitude': pnt.coords[1]}
         return ret
 
