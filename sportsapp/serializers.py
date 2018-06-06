@@ -18,7 +18,7 @@ from oauthlib.common import generate_token
 from rest_framework_gis.serializers import GeoFeatureModelSerializer
 from rest_framework_gis import serializers as geo_serializers
 from rest_framework_gis.fields import GeometrySerializerMethodField
-from django.http import JsonResponse
+from django.contrib.gis.geos import GEOSGeometry
 
 
 class ProfileSerializer(serializers.ModelSerializer):
@@ -48,7 +48,8 @@ class UserSerializer(serializers.ModelSerializer):
 
     def get_last_location(self, instance):
         ret = instance.profile.last_location
-        pnt = fromstr(ret)
+        pnt =  GEOSGeometry(ret)
+        pnt = fromstr(pnt)
         ret= {'longitude': pnt.coords[0], 'latitude': pnt.coords[1]}
         return ret
 
