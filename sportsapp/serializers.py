@@ -49,7 +49,7 @@ class UserSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         ret = instance
         pnt = fromstr(ret.profile.last_location)
-        pnt = {'longitude': pnt.coords[0], 'latitude': pnt.coords[1]}
+        ret.profile.last_location = {'longitude': pnt.coords[0], 'latitude': pnt.coords[1]}
         return ret
 
 
