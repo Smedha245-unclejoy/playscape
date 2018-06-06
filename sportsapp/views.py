@@ -126,3 +126,11 @@ class SelfCreateProfile(APIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class GetUser(APIView):
+    permission_classes = (IsAuthenticatedOrCreate,)
+    def get(self,request):
+        user = get_object_or_404(User,pk=request.user.id)
+        if user:
+            return Response(UserSerializer(user).data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
