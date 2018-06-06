@@ -14,8 +14,8 @@ class Profile(models.Model):
     gender_choices = (('M','Male'),
                         ('F','Female'),
                         ('O','Others'))
-    user_gender = models.CharField(choices = gender_choices,max_length=1,blank=True)
+    user_gender = models.CharField(choices = gender_choices,max_length=1,blank=True,default='Male')
     #dob = models.DateField()
-    last_location = models.PointField(max_length=40, blank=True,spatial_index=True, geography=True)
+    last_location = models.PointField(max_length=40, blank=True,spatial_index=True, geography=True,default='POINT(78.9629 20.5937)')
     prefered_radius = models.IntegerField(default=5, help_text="in kilometers")
     objects = GeoManager()
