@@ -18,7 +18,7 @@ from oauthlib.common import generate_token
 from rest_framework_gis.serializers import GeoFeatureModelSerializer
 from rest_framework_gis import serializers as geo_serializers
 from rest_framework_gis.fields import GeometrySerializerMethodField
-from django.contrib.gis.geos import GEOSGeometry
+from django.contrib.gis.geos import Point
 
 
 class ProfileSerializer(serializers.ModelSerializer):
@@ -50,7 +50,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         ret = instance
-        ret.profile.last_location={'longitude': ret.profile.longitude, 'latitude': ret.profile.latitude}
+        ret.profile.last_location=Point(ret.profile.longitude,  ret.profile.latitude)
         return ret
 
 
