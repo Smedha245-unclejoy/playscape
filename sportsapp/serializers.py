@@ -45,7 +45,7 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ('id', 'first_name', 'email', 'password','last_location','latitude','longitude','user_gender','prefered_radius')
 
     def to_representation(self, instance):
-        ret = self.instance
+        ret = instance
         ret['profile']['last_location'] = Point(ret['profile']['longitude'],  ret['profile']['latitude'])
         return ret
 
