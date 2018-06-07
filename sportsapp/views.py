@@ -106,15 +106,17 @@ class AuthInfoUpdateView(generics.UpdateAPIView):
     permission_classes = (IsAuthenticatedOrCreate,)
     serializer_class = UserSerializer
     queryset = User.objects.all()
-    lookup_field = 'pk'
+    lookup_field = 'email'
 
     def patch(self, request, *args, **kwargs):
         instance=get_object_or_404(User,email=request.data['email'])
-        serializer = UserSerializer(instance=instance,data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        if instance:
+            serializer = UserSerializer(instance=instance,data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+
+        return Response("Instance doesnt exist", status=status.HTTP_400_BAD_REQUEST)
 
 class SelfCreateProfile(APIView):
     permission_classes = (IsAuthenticatedOrCreate,)
