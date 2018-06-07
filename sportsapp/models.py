@@ -14,15 +14,15 @@ class Profile(models.Model):
                         ('F','Female'),
                         ('O','Others'))
     user_gender = models.CharField(choices = gender_choices,max_length=1,blank=True,default='Male')
-    latitude = models.FloatField(null=True, blank=True)
-    longitude = models.FloatField(null=True, blank=True)
+    #latitude = models.FloatField(null=True, blank=True)
+    #longitude = models.FloatField(null=True, blank=True)
     #dob = models.DateField()
     last_location = models.PointField(max_length=40, blank=True,null=True)
     prefered_radius = models.IntegerField(default=5, help_text="in kilometers")
     objects = models.GeoManager()
 
-    def save(self, *args, **kwargs):
-        if self.latitude and self.longitude:
-             self.last_location = Point(self.longitude, self.latitude)
+    #def save(self, *args, **kwargs):
+    #    if self.latitude and self.longitude:
+    #         self.last_location = Point(self.longitude, self.latitude)
 
-        super(Profile, self).save(*args, **kwargs)
+    #    super(Profile, self).save(*args, **kwargs)
