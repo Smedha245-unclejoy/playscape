@@ -35,6 +35,8 @@ class UserSerializer(serializers.ModelSerializer):
                         ('O','Others')
                         )
     user_gender = serializers.ChoiceField(source='profile.user_gender',choices=gender_choices)
+    latitude = serializers.FloatField(source='profile.latitude')
+    longitude = serializers.FloatField(source='profile.longitude')
     #dob = serializers.DateField(source='profile.dob')  # date in the format 1995-12-17:yyyy-mm-dd
     #posts = serializers.HyperlinkedRelatedField(many=True,read_only=True,view_name='post-detail')
     last_location = serializers.SerializerMethodField(required=False,source='profile.last_location',method_name='to_representation')
@@ -44,12 +46,10 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'first_name', 'email', 'password','last_location','user_gender','prefered_radius')
+        fields = ('id', 'first_name', 'email', 'password','last_location','latitude','longitude','user_gender','prefered_radius')
 
     def to_representation(self, instance):
-        ret = instance.profile.last_location
-        pnt = fromstr(ret)
-        ret = {'longitude': pnt.coords[0], 'latitude': pnt.coords[1]}
+        ret = instance
         return ret
 
 
