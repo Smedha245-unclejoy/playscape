@@ -51,6 +51,7 @@ class UserSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         ret = instance
         ret.profile.last_location={'longitude': ret.profile.longitude, 'latitude': ret.profile.latitude}
+        return ret
 
 
 #By overriding create and update any put or post delete will be in sync with the profile table
