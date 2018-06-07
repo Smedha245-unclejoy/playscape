@@ -46,7 +46,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         ret = self.instance
-        ret.last_location = Point(ret.longitude,  ret.latitude)
+        ret['last_location'] = Point(ret['longitude'],  ret['latitude'])
         return ret
 
 
