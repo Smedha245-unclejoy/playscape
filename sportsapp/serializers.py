@@ -10,14 +10,10 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.hashers import make_password
 from oauth2_provider.settings import oauth2_settings
 from django.http import JsonResponse
-from django.contrib.gis.geos import fromstr
 from sportsapp.models import Profile
 from oauth2_provider.models import AccessToken, Application, RefreshToken
 from django.utils.timezone import now, timedelta
 from oauthlib.common import generate_token
-from rest_framework_gis.serializers import GeoFeatureModelSerializer
-from rest_framework_gis import serializers as geo_serializers
-from rest_framework_gis.fields import GeometrySerializerMethodField
 from django.contrib.gis.geos import Point
 
 
@@ -49,7 +45,7 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ('id', 'first_name', 'email', 'password','last_location','latitude','longitude','user_gender','prefered_radius')
 
     def to_representation(self, instance):
-        ret = super(UserSerializer, self).to_representation(instance)
+        ret = self.instance
         ret.profile.last_location = Point(ret.profile.longitude,  ret.profile.latitude)
         return ret
 
