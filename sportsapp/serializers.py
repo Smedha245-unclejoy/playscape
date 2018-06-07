@@ -45,7 +45,8 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ('id', 'first_name', 'email', 'password','last_location','latitude','longitude','user_gender','prefered_radius')
 
     def to_representation(self, instance):
-        pass
+        ret = super().to_representation(instance)
+        return ret
 
 
 #By overriding create and update any put or post delete will be in sync with the profile table
