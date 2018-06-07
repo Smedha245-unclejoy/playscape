@@ -46,7 +46,6 @@ class UserSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         ret = instance
-        ret.profile.last_location = Point(ret.profile.longitude,  ret.profile.latitude)
         return ret
 
 
@@ -64,6 +63,7 @@ class UserSerializer(serializers.ModelSerializer):
         #last_location=validated_data['profile']['last_location']
         #pnt=fromstr(last_location)
         #validated_data['profile']['last_location']={'longitude': pnt.coords[0], 'latitude': pnt.coords[1]}
+        validated_data['password'] = make_password(validated_data['password'],salt=None,hasher='default')
         profile_data = validated_data.pop('profile', None)
         self.update_or_create_profile(instance, profile_data,validated_data)
         return super(UserSerializer, self).update(instance, validated_data)

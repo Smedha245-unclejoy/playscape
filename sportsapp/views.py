@@ -116,7 +116,7 @@ class AuthInfoUpdateView(generics.UpdateAPIView):
                 serializer.save()
                 return Response(serializer.data)
 
-        return Response("Instance doesnt exist", status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class SelfCreateProfile(APIView):
     permission_classes = (IsAuthenticatedOrCreate,)
