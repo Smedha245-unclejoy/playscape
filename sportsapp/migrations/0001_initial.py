@@ -22,7 +22,6 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('user_gender', models.CharField(blank=True, choices=[('M', 'Male'), ('F', 'Female'), ('O', 'Others')], default='Male', max_length=1)),
-                ('latitude', models.FloatField(blank=True, null=True)),
                 ('longitude', models.FloatField(blank=True, null=True)),
                 ('last_location', django.contrib.gis.db.models.fields.PointField(blank=True, max_length=40, null=True, srid=4326)),
                 ('prefered_radius', models.IntegerField(default=5, help_text='in kilometers')),
