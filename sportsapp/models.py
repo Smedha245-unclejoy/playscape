@@ -2,6 +2,7 @@
 #from django.db.models.fields import DateField
 from django.contrib.auth.models import User
 from django.contrib.gis.db import models
+from django.contrib.gis.geos import Point
 from django.core.validators import MinValueValidator, MaxValueValidator
 
 
