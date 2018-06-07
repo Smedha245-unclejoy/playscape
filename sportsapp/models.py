@@ -25,4 +25,4 @@ class Profile(models.Model):
         if self.latitude and self.longitude:
              self.last_location = Point(self.longitude, self.latitude)
 
-        super(Foo, self).save(*args, **kwargs)
+        super(Profile, self).save(*args, **kwargs)
