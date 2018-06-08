@@ -46,6 +46,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     def get_last_location(self, instance):
         ret = instance
+        serializers.serialize(ret)
         return ret
 
 
