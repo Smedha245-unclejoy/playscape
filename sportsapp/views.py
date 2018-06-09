@@ -116,7 +116,7 @@ class AuthInfoUpdateView(generics.UpdateAPIView):
             if serializer.is_valid():
                 serializer.update(instance=instance,validated_data=serializer.data)
 
-                return Response(serialize('geojson',serializer.data,geometry_field='last_location',fields = ('id', 'first_name', 'email', 'password','latitude','longitude','user_gender','prefered_radius')),safe=False)
+                return Response(serializer.data,safe=False)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
