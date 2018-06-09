@@ -3,6 +3,7 @@ from django.conf import settings
 from django.contrib.gis.geos import GEOSGeometry
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.models import User
+from django.core.serializers import serialize
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
@@ -43,7 +44,7 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         geometry_field='last_location'
-        fields = ('id', 'first_name', 'email', 'password','last_location','latitude','longitude','user_gender','prefered_radius')
+        fields = ('id', 'first_name', 'email', 'password','latitude','longitude','user_gender','prefered_radius')
 
 
 

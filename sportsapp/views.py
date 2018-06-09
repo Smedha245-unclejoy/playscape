@@ -8,7 +8,6 @@ from sportsapp.serializers import UserSerializer,LoginSerializer,PasswordResetSe
 from django.contrib.gis.geos import Point
 from django.shortcuts import get_object_or_404
 from django.db.models import F
-from django.core.serializers import serialize
 from django.contrib.gis.measure import Distance
 from rest_framework.pagination import LimitOffsetPagination
 #from rest_framework.authtoken.models import Token
