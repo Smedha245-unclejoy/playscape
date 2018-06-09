@@ -35,7 +35,7 @@ class UserSerializer(serializers.ModelSerializer):
     longitude = serializers.FloatField(source='profile.longitude')
     #dob = serializers.DateField(source='profile.dob')  # date in the format 1995-12-17:yyyy-mm-dd
     #posts = serializers.HyperlinkedRelatedField(many=True,read_only=True,view_name='post-detail')
-    last_location = serializers.ReadOnlyField(required=False,source='profile.last_location')
+    last_location = serializers.ReadOnlyField(required=False,source='profile.last_location',default=point_jsonifier)
     prefered_radius = serializers.IntegerField(source='profile.prefered_radius',default=5)
 
 
@@ -44,7 +44,11 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('id', 'first_name', 'email', 'password','latitude','last_location','longitude','user_gender','prefered_radius')
 
-
+    def point_jsonifier(obj):
+        if isinstance(obj, Point):
+            return {'x': obj.x, 'y': obj.y}
+        else:
+            raise ValueError('%r is not JSON serializable' % obj)
 
 
 #By overriding create and update any put or post delete will be in sync with the profile table

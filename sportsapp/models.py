@@ -25,5 +25,5 @@ class Profile(models.Model):
 
     def save(self, *args, **kwargs):
         if self.latitude and self.longitude:
-             self.last_location = GEOSGeometry(Point(self.longitude, self.latitude))
+             self.last_location = Point(self.longitude, self.latitude)
         super(Profile, self).save(*args, **kwargs)
