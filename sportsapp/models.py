@@ -23,7 +23,6 @@ class Profile(models.Model):
     prefered_radius = models.IntegerField(default=5, help_text="in kilometers")
     objects = models.GeoManager()
 
-    def save(self, *args, **kwargs):
+    def has_location(self):
         if self.latitude and self.longitude:
-             self.last_location = GEOSGeometry(Point(self.longitude, self.latitude))
-        super(Profile, self).save(*args, **kwargs)
+             return self.last_location = Point(self.longitude, self.latitude)
