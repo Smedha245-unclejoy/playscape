@@ -10,6 +10,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.hashers import make_password
 from oauth2_provider.settings import oauth2_settings
 from django.http import JsonResponse
+from django.contrib.gis.geos import fromstr
 from sportsapp.models import Profile
 from oauth2_provider.models import AccessToken, Application, RefreshToken
 from django.utils.timezone import now, timedelta
@@ -47,8 +48,8 @@ class UserSerializer(serializers.ModelSerializer):
     def get_last_location(self,instance):
         ret = instance
         pnt = fromstr(instance.profile.last_location)
-        ret['last_location'] = {'longitude': pnt.coords[0], 'latitude': pnt.coords[1]}
-        return ret
+        pnt = {'longitude': pnt.coords[0], 'latitude': pnt.coords[1]}
+        return pnt
 
 
 #By overriding create and update any put or post delete will be in sync with the profile table
