@@ -25,4 +25,5 @@ class Profile(models.Model):
 
     def has_location(self):
         if self.latitude and self.longitude:
-             return self.last_location = Point(self.longitude, self.latitude)
+             self.last_location = Point(self.longitude, self.latitude)
+             return self.last_location
