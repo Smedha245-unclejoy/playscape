@@ -1,6 +1,5 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from django.http import JsonResponse
 from rest_framework import generics
 from rest_framework.parsers import JSONParser
 from django.contrib.auth import authenticate
@@ -9,6 +8,7 @@ from sportsapp.serializers import UserSerializer,LoginSerializer,PasswordResetSe
 from django.contrib.gis.geos import Point
 from django.shortcuts import get_object_or_404
 from django.db.models import F
+from django.core.serializers import serialize
 from django.contrib.gis.measure import Distance
 from rest_framework.pagination import LimitOffsetPagination
 #from rest_framework.authtoken.models import Token
@@ -115,7 +115,8 @@ class AuthInfoUpdateView(generics.UpdateAPIView):
             serializer = UserSerializer(instance=instance,data=request.data)
             if serializer.is_valid():
                 serializer.update(instance=instance,validated_data=serializer.data)
-                return Response(JsonResponse(serializer.data),safe=False)
+
+                return Response(serialize('geojson',serializer.data),safe=False)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

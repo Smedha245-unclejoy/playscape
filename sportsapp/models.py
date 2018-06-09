@@ -3,6 +3,7 @@
 from django.contrib.auth.models import User
 from django.contrib.gis.db import models
 from django.contrib.gis.geos import Point
+from django.contrib.gis.geos import GEOSGeometry
 from django.core.validators import MinValueValidator, MaxValueValidator
 
 
@@ -24,5 +25,5 @@ class Profile(models.Model):
 
     def save(self, *args, **kwargs):
         if self.latitude and self.longitude:
-             self.last_location = Point(self.longitude, self.latitude)
+             self.last_location = GEOSGeometry(Point(self.longitude, self.latitude))
         super(Profile, self).save(*args, **kwargs)
