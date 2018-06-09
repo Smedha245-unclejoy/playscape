@@ -113,7 +113,6 @@ class AuthInfoUpdateView(generics.UpdateAPIView):
         instance=get_object_or_404(User,email=request.data['email'])
         if instance:
             serializer = UserSerializer(instance=instance,data=request.data)
-            serialize('geojson',serializer)
             if serializer.is_valid():
                 serializer.update(instance=instance,validated_data=serializer.data)
 
