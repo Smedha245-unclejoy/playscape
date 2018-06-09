@@ -73,7 +73,7 @@ class UserSerializer(serializers.ModelSerializer):
         Profile.objects.update_or_create(user=user,defaults=profile_data)
 
     def serialize_last_location(self, instance):
-        return str(instance.profile.last_location)  # Or however you want to format it
+        return fromstr(instance.profile.last_location)  # Or however you want to format it
 
 
 
