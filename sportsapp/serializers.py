@@ -43,8 +43,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        geometry_field='last_location'
-        fields = ('id', 'first_name', 'email', 'password','latitude','longitude','user_gender','prefered_radius')
+        fields = ('id', 'first_name', 'email', 'password','latitude','last_location','longitude','user_gender','prefered_radius')
 
 
 
