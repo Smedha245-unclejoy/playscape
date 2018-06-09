@@ -35,7 +35,7 @@ class UserSerializer(serializers.ModelSerializer):
     longitude = serializers.FloatField(source='profile.longitude')
     #dob = serializers.DateField(source='profile.dob')  # date in the format 1995-12-17:yyyy-mm-dd
     #posts = serializers.HyperlinkedRelatedField(many=True,read_only=True,view_name='post-detail')
-    last_location = serializers.ReadOnlyField(required=False,source='profile.last_location')
+    last_location = serializers.Field(required=False,source='profile.last_location')
     prefered_radius = serializers.IntegerField(source='profile.prefered_radius',default=5)
 
 
@@ -72,8 +72,7 @@ class UserSerializer(serializers.ModelSerializer):
         # change the logic here if that's not right for your app
         Profile.objects.update_or_create(user=user,defaults=profile_data)
 
-    def serialize_last_location(self, instance):
-        return fromstr(instance.profile.last_location)  # Or however you want to format it
+
 
 
 
