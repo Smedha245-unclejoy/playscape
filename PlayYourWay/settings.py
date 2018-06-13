@@ -161,6 +161,9 @@ AUTHENTICATION_BACKENDS = (
     # Facebook OAuth2
     'social_core.backends.facebook.FacebookAppOAuth2',
     'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.open_id.OpenIdAuth',
+    'social_core.backends.google.GoogleOpenId',
+    'social_core.backends.google.GoogleOAuth2',
 )
 # Facebook configuration
 SOCIAL_AUTH_FACEBOOK_KEY = '1167675320041732'
@@ -171,6 +174,10 @@ SOCIAL_AUTH_FACEBOOK_SCOPE = ['email','user_gender','user_friends','public_profi
 SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
     'fields': 'id,name, email'
 }
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY ='515382694363-4tv4f9n0d87gj7n3p093rkkk944q15gt.apps.googleusercontent.com'  #Paste CLient Key
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'z4CmIwh5jATA1uiXBJdb2s3N' #Paste Secret Key
+SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = ['email','gender','name']
+SOCIAL_AUTH_GOOGLE_OAUTH2_PROFILE_EXTRA_PARAMS = {'fields': 'name,email,gender'}
 OAUTH2_PROVIDER = {
         'ACCESS_TOKEN_EXPIRE_SECONDS': 60 * 60 * 24,
  }
