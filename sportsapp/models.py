@@ -16,6 +16,7 @@ class Profile(models.Model):
                         ('F','Female'),
                         ('O','Others'))
     user_gender = models.CharField(choices = gender_choices,max_length=1,blank=True,default='Male')
+    profile_picture = models.ImageField(blank=True,upload_to='profile_picture/')
     latitude = models.FloatField(null=True, blank=True)
     longitude = models.FloatField(null=True, blank=True)
     #dob = models.DateField()

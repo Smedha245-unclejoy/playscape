@@ -38,12 +38,13 @@ class UserSerializer(serializers.ModelSerializer):
     #posts = serializers.HyperlinkedRelatedField(many=True,read_only=True,view_name='post-detail')
     last_location = serializers.SerializerMethodField(required=False,source='profile.last_location')
     prefered_radius = serializers.IntegerField(source='profile.prefered_radius',default=5)
+    profile_picture = serializers.ImageField(source='profile.profile_picture',required=False)
 
 
 
     class Meta:
         model = User
-        fields = ('id', 'first_name', 'email', 'password','latitude','last_location','longitude','user_gender','prefered_radius')
+        fields = ('id', 'username', 'email', 'password','latitude','last_location','longitude','user_gender','prefered_radius','profile_picture')
 
     def get_last_location(self,instance):
         ret = instance
