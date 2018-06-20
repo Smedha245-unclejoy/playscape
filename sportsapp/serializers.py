@@ -73,7 +73,7 @@ class UserSerializer(serializers.ModelSerializer):
         return super(UserSerializer, self).update(instance, validated_data)
 
 
-    def update_or_create_profile(self, user, profile_data,validated_data):
+    def update_or_create_profile(self, user, profile_data):
         # This always creates a Profile if the User is missing one;
         # change the logic here if that's not right for your app
         Profile.objects.update_or_create(user=user,defaults=profile_data)
