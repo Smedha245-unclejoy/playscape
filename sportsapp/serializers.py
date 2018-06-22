@@ -38,7 +38,7 @@ class UserSerializer(serializers.ModelSerializer):
     #posts = serializers.HyperlinkedRelatedField(many=True,read_only=True,view_name='post-detail')
     last_location = serializers.SerializerMethodField(required=False,source='profile.last_location')
     prefered_radius = serializers.IntegerField(source='profile.prefered_radius',default=5)
-    profile_picture = serializers.ImageField(source='profile.profile_picture',required=False)
+    profile_picture = serializers.FileField(source='profile.profile_picture',required=False)
 
 
 

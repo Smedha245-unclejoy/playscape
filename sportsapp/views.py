@@ -18,6 +18,9 @@ from django.contrib.auth.models import User
 from .models import Profile
 from oauth2_provider.models import Application
 from django.contrib.auth import get_user_model
+from rest_framework.parsers import MultiPartParser
+from rest_framework.parsers import JSONParser
+from rest_framework.decorators import parser_classes
 from django.contrib.auth.hashers import make_password
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 # Create your views here.
@@ -109,7 +112,7 @@ class AuthInfoUpdateView(generics.UpdateAPIView):
     queryset = User.objects.all()
     lookup_field = 'email'
 
-    def patch(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         instance=get_object_or_404(User,email=request.data['email'])
         if instance:
             serializer = UserSerializer(instance=instance,data=request.data)
