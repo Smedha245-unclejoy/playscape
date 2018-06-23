@@ -117,7 +117,7 @@ class AuthInfoUpdateView(generics.UpdateAPIView):
         if instance:
             serializer = UserSerializer(instance=instance,data=request.data)
             if serializer.is_valid():
-                serializer.save(instance=instance,validated_data=serializer.data)
+                serializer.save(instance=instance,validated_data=serializer.validated_data)
 
                 return Response(serializer.data)
 
