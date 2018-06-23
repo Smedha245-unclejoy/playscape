@@ -16,6 +16,7 @@ from oauth2_provider.models import AccessToken, Application, RefreshToken
 from django.utils.timezone import now, timedelta
 from oauthlib.common import generate_token
 from django.contrib.gis.geos import Point
+from sportsapp.BaseField import Base64ImageField
 
 
 class ProfileSerializer(serializers.ModelSerializer):
@@ -38,7 +39,7 @@ class UserSerializer(serializers.ModelSerializer):
     #posts = serializers.HyperlinkedRelatedField(many=True,read_only=True,view_name='post-detail')
     last_location = serializers.SerializerMethodField(required=False,source='profile.last_location')
     prefered_radius = serializers.IntegerField(source='profile.prefered_radius',default=5)
-    profile_picture = serializers.FileField(source='profile.profile_picture',required=False)
+    profile_picture = Base64ImageField(source='profile.profile_picture',required=False)
 
 
 
