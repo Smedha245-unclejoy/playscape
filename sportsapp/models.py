@@ -28,10 +28,5 @@ class Profile(models.Model):
     def save(self, *args, **kwargs):
         if self.latitude and self.longitude:
              self.last_location = Point(self.longitude, self.latitude)
-        if self.profile_picture:
-            imgdata = base64.b64decode(self.profile_picture)
-            filename = 'some_image.jpg'
-            with open(filename, 'wb') as f:
-                f.write(imgdata)
 
         super(Profile, self).save(*args, **kwargs)
