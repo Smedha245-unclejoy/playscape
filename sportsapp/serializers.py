@@ -16,6 +16,7 @@ from oauth2_provider.models import AccessToken, Application, RefreshToken
 from django.utils.timezone import now, timedelta
 from oauthlib.common import generate_token
 from django.contrib.gis.geos import Point
+from django.template import loader
 from sportsapp.BaseField import Base64ImageField
 
 
@@ -175,7 +176,7 @@ class PasswordResetSerializer(serializers.Serializer):
                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
                 'user': user,
                 #'token': default_token_generator.make_token(user),
-                'protocol': 'http',  # Your site can handle its own redirects
+                'protocol': 'https',  # Your site can handle its own redirects
             }
             print(c)
             subject = loader.render_to_string(subject_template_name, c)
