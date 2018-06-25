@@ -5,6 +5,7 @@ from django.contrib.gis.db import models
 from django.contrib.gis.geos import Point
 from django.contrib.gis.geos import GEOSGeometry
 from django.core.validators import MinValueValidator, MaxValueValidator
+import base64
 
 
 
@@ -27,4 +28,10 @@ class Profile(models.Model):
     def save(self, *args, **kwargs):
         if self.latitude and self.longitude:
              self.last_location = Point(self.longitude, self.latitude)
+        if self.profile_picture:
+            imgdata = base64.b64decode(self.profile_picture)
+            filename = 'some_image.jpg'
+            with open(filename, 'wb') as f:
+                f.write(imgdata)
+
         super(Profile, self).save(*args, **kwargs)
