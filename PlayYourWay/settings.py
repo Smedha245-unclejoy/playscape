@@ -212,7 +212,13 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-DEFAULT_FROM_EMAIL = 'smedha245@gmail.com'
+DEFAULT_FROM_EMAIL='priti7608@gmail.com'
+EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST='smtp.gmail.com'
+EMAIL_PORT=587
+EMAIL_HOST_USER='priti7608@gmail.com'
+EMAIL_HOST_PASSWORD='priti@7608'
+EMAIL_USE_TLS=True
 
 
 
