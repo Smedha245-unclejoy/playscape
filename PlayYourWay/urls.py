@@ -25,6 +25,8 @@ urlpatterns = [
     url(r'^auth/', include('rest_framework_social_oauth2.urls')),
     url(r'^users/', include('sportsapp.urls')),
     url(r'^login', views.Login.as_view(),name='login'),
+    url(r'^reset/(?P[0-9A-Za-z]+)-(?P.+)/$', 'django.contrib.auth.views.PasswordResetConfirmView'),
+    url(r'^reset/done/$', 'django.contrib.auth.views.password_reset_complete'),
     url(r'^forgotpassword', views.ForgotPassword.as_view(),name='forgot_password'),
     url(r'^posts/', include('posts.urls')),
     url(r'^likes/', include('likes.urls'))
