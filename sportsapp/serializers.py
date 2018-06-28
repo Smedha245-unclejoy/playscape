@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
+from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth import get_user_model
 from django.contrib.auth.hashers import make_password
 from oauth2_provider.settings import oauth2_settings
@@ -155,7 +156,8 @@ class PasswordResetSerializer(serializers.Serializer):
 
     def reset_password(request, email, subject_template_name='sportsapp/password_reset_subject.txt',
                    rich_template_name='sportsapp/password_reset_email_rich.html',
-                   template_name='sportsapp/password_reset_email.html'):
+                   template_name='sportsapp/password_reset_email.html',
+                   token_generator=default_token_generator):
         """
         Inspired by Django's `PasswordResetForm.save()`. Extracted for reuse.
         Allows password reset emails to be sent to users with unusable passwords
@@ -173,9 +175,9 @@ class PasswordResetSerializer(serializers.Serializer):
                 'email': user.email,
                 'domain': domain,
                 'site_name': site_name,
-                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                'uidb64': urlsafe_base64_encode(force_bytes(user.pk)),
                 'user': user,
-                #'token': default_token_generator.make_token(user),
+                'token': default_token_generator.make_token(user),
                 'protocol': 'https',  # Your site can handle its own redirects
             }
             print(c)

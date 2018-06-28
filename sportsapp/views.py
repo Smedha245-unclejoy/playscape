@@ -9,7 +9,11 @@ from sportsapp.serializers import UserSerializer,LoginSerializer,PasswordResetSe
 from django.contrib.gis.geos import Point
 from django.shortcuts import get_object_or_404
 from django.db.models import F
+from django.views.decorators.csrf import csrf_protect
+from django.utils.decorators import method_decorator
+from django.contrib.auth.views import PasswordContextMixin
 from django import forms
+from django.views.generic.edit import FormView
 from django.contrib.gis.measure import Distance
 from rest_framework.pagination import LimitOffsetPagination
 #from rest_framework.authtoken.models import Token
@@ -51,6 +55,10 @@ class ForgotPassword(APIView):
     Sends an email to the user to reset Password
     """
     permission_classes=(IsAuthenticatedOrCreate,)
+    @method_decorator(csrf_protect)
+    def dispatch(self, *args, **kwargs):
+        return super(ForgotPassword, self).dispatch(*args, **kwargs)
+
     def post(self,request,format='json',*args,**kwargs):
         serializer = PasswordResetSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -142,3 +150,5 @@ class GetUser(APIView):
         if user:
             return Response(UserSerializer(user).data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class ConfirmPasswordView(PasswordContextMixin, FormView):
