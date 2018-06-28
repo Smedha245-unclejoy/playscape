@@ -49,7 +49,7 @@ class UserCreate(APIView):
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
+@csrf_protect
 class ForgotPassword(APIView):
     """
     Sends an email to the user to reset Password
