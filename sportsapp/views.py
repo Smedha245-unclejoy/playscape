@@ -150,5 +150,3 @@ class GetUser(APIView):
         if user:
             return Response(UserSerializer(user).data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-class ConfirmPasswordView(PasswordContextMixin, FormView):
