@@ -55,9 +55,6 @@ class ForgotPassword(APIView):
     Sends an email to the user to reset Password
     """
     permission_classes=(IsAuthenticatedOrCreate,)
-    @method_decorator(csrf_protect)
-    def dispatch(self, *args, **kwargs):
-        return super(ForgotPassword, self).dispatch(*args, **kwargs)
 
     def post(self,request,format='json',*args,**kwargs):
         serializer = PasswordResetSerializer(data=request.data)
