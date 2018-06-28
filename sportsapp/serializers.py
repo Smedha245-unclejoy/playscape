@@ -175,7 +175,7 @@ class PasswordResetSerializer(serializers.Serializer):
                 'email': user.email,
                 'domain': domain,
                 'site_name': site_name,
-                'uidb64': urlsafe_base64_encode(force_bytes(user.pk)),
+                'uidb64': urlsafe_base64_encode(user.pk),
                 'user': user,
                 'token': default_token_generator.make_token(user),
                 'protocol': 'https',  # Your site can handle its own redirects
