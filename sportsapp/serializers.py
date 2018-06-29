@@ -109,7 +109,7 @@ class LoginSerializer(serializers.ModelSerializer):
         """
 
         # our oauth2 app
-        app = Application.objects.get(name=user)
+        app = Application.objects.get(name='PLAYSCAPE')
 
         # We delete the old access_token and refresh_token
         try:
