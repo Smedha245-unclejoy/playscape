@@ -30,7 +30,8 @@ urlpatterns = [
     url(r'^password_reset_complete/',auth_views.PasswordResetCompleteView.as_view(template_name='registration/password_reset_complete.html')),
     url(r'^forgotpassword', views.ForgotPassword.as_view(),name='forgot_password'),
     url(r'^posts/', include('posts.urls')),
-    url(r'^likes/', include('likes.urls'))
+    url(r'^likes/', include('likes.urls')),
+    url(r'^sport/', include('sports.urls'))
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

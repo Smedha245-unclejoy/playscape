@@ -45,6 +45,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 
+
     class Meta:
         model = User
         fields = ('id', 'username','first_name','last_name', 'email', 'password','latitude','last_location','longitude','user_gender','prefered_radius','profile_picture')
