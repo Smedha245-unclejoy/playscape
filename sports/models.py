@@ -17,7 +17,7 @@ class Sport(models.Model):
 
 
      def save(self, *args, **kwargs):
-         super(Post, self).save(*args, **kwargs)
+         super(Sport, self).save(*args, **kwargs)
 
 class SportFollower(models.Model):
     sport = models.ForeignKey(Sport,on_delete=models.CASCADE)
