@@ -21,5 +21,5 @@ class Sport(models.Model):
 
 class SportFollower(models.Model):
     sport = models.ForeignKey(Sport,on_delete=models.CASCADE)
-    sport_name = models.CharField(max_length=20)
+    sport_name = models.CharField(max_length=20,blank=True)
     follower = models.ForeignKey(User,on_delete=models.CASCADE)
