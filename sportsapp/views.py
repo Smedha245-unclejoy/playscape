@@ -18,7 +18,7 @@ from django.contrib.gis.measure import Distance
 from rest_framework.pagination import LimitOffsetPagination
 #from rest_framework.authtoken.models import Token
 from sportsapp.permissions import IsAuthenticatedOrCreate
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny,IsAuthenticated
 from django.contrib.auth.models import User
 from .models import Profile
 from oauth2_provider.models import Application
@@ -113,7 +113,7 @@ class NearbyUserList(viewsets.ViewSet):
             status=status.HTTP_200_OK)
 
 class AuthInfoUpdateView(generics.UpdateAPIView):
-    permission_classes = (IsAuthenticatedOrCreate,)
+    permission_classes = (IsAuthenticated,)
     serializer_class = UserSerializer
     queryset = User.objects.all()
     lookup_field = 'email'
@@ -130,7 +130,7 @@ class AuthInfoUpdateView(generics.UpdateAPIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class SelfCreateProfile(APIView):
-    permission_classes = (IsAuthenticatedOrCreate,)
+    permission_classes = (IsAuthenticated,)
     serializer_class = ProfileSerializer
     def post(self, request, format='json'):
         request.data['user']=request.user.id
@@ -141,7 +141,7 @@ class SelfCreateProfile(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class GetUser(APIView):
-    permission_classes = (IsAuthenticatedOrCreate,)
+    permission_classes = (IsAuthenticated,)
     def get(self,request):
         user = get_object_or_404(User,pk=request.user.id)
         if user:
