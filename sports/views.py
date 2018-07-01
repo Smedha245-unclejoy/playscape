@@ -15,8 +15,9 @@ class SportsFollowedByUser(generics.ListAPIView):
     def get_queryset(self):
         user_id = self.kwargs['user_id']
         sport_ids = SportFollower.objects.filter(follower=user_id)
-        for sport_id in sport_ids:
-            sport = Sport.objects.filter(pk=sport_id)
+        count = sport_ids.count
+        for sport_ids.result.count in count:
+            sport = Sport.objects.filter(pk=sport_ids.result.count)
 
         return sport
 
