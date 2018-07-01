@@ -14,12 +14,8 @@ class SportsFollowedByUser(generics.ListAPIView):
     serializer_class = SportFollowerSerializer
     def get_queryset(self):
         user_id = self.kwargs['user_id']
-        sport_ids = SportFollower.objects.filter(follower=user_id)
-        count = sport_ids.count
-        for sport_ids.result.count in count:
-            sport = Sport.objects.filter(pk=sport_ids.result.count)
-
-        return sport
+        queryset = SportFollower.objects.filter(follower=user_id)
+        return queryset
 
 class SportView(APIView):
     permissions = [IsAuthenticated]
