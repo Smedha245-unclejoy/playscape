@@ -28,12 +28,13 @@ class SportsFollowedByUser(generics.ListAPIView):
     permissions = [IsAuthenticated]
     serializer_class = SportFollowerSerializer
     def get_queryset(self):
-        user_id = self.kwargs['user_id']
+        user_id = self.request.user.id
         queryset = SportFollower.objects.filter(follower=user_id)
         return queryset
 class SportFollowerView(APIView):
     permissions = [IsAuthenticated]
     def post(self, request, format='json'):
+        request.data['follower']=self.request.user.id
         serializer = SportFollowerSerializer(data=request.data)
         if serializer.is_valid():
             sportFollow = serializer.save()
