@@ -18,3 +18,8 @@ class Sport(models.Model):
 
      def save(self, *args, **kwargs):
          super(Sport, self).save(*args, **kwargs)
+
+class SportFollower(models.Model):
+    sport = models.OneToOneField(Sport,on_delete=models.CASCADE,unique=True)
+    sport_name = models.CharField(max_length=20,blank=True)
+    follower = models.ForeignKey(User,on_delete=models.CASCADE)
