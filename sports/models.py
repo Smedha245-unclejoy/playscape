@@ -20,6 +20,6 @@ class Sport(models.Model):
          super(Sport, self).save(*args, **kwargs)
 
 class SportFollower(models.Model):
-    sport = models.ForeignKey(Sport,on_delete=models.CASCADE,unique=True)
-    sport_name = models.CharField(max_length=20,blank=True,unique=True)
+    sport = models.OneToOneField(Sport,on_delete=models.CASCADE,unique=True)
+    sport_name = models.OneToOneField(max_length=20,blank=True,unique=True)
     follower = models.ForeignKey(User,on_delete=models.CASCADE)
