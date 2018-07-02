@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.gis.db import models
 from django.contrib.gis.geos import Point
 from django.contrib.gis.geos import GEOSGeometry
+from django.contrib.gis.db.models.manager import GeoManager
 from django.core.validators import MinValueValidator, MaxValueValidator
 import base64
 
@@ -23,7 +24,7 @@ class Profile(models.Model):
     #dob = models.DateField()
     last_location = models.PointField(max_length=40, blank=True,null=True)
     prefered_radius = models.IntegerField(default=5, help_text="in kilometers")
-    objects = models.GeoManager()
+    objects = GeoManager()
 
     def save(self, *args, **kwargs):
         if self.latitude and self.longitude:
