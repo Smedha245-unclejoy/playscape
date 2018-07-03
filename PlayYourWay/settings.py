@@ -171,7 +171,7 @@ SOCIAL_AUTH_FACEBOOK_SECRET = '7e10dadc3976fe17b5e26ab07d5c3078'
 # Define SOCIAL_AUTH_FACEBOOK_SCOPE to get extra permissions from facebook. Email is not sent by default, to get it, you must request the email permission:
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email','user_gender','user_friends','public_profile']
 SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
-    'fields': 'id,name, email'
+    'fields': 'id,name,email'
 }
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY ='515382694363-fsq3de6t2uieh55vsh9pj95tb8kt4oh6.apps.googleusercontent.com'  #Paste CLient Key
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'z4CmIwh5jATA1uiXBJdb2s3N' #Paste Secret Key

@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class Sport(models.Model):
-     sport_name = models.CharField(max_length=100)
+     sport_name = models.CharField(max_length=100,unique=True)
      min_participants = models.IntegerField(default=0)
      max_participants = models.IntegerField(default=1)
      team_choices = (('Single Team','SingleTeam'),
