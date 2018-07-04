@@ -43,3 +43,10 @@ class SportFollowerView(APIView):
                 return Response(json, status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class AllSports(generics.ListAPIView):
+    permissions = [IsAuthenticated]
+    serializer_class = SportSerializer
+    def get_queryset(self):
+        queryset = Sport.objects.all()
+        return queryset

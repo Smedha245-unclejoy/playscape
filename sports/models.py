@@ -11,6 +11,7 @@ class Sport(models.Model):
                          ('Multiple Team','MultipleTeam'),
                          )
      team = models.CharField(choices=team_choices,max_length=15)
+     sport_image = models.ImageField(upload_to='sport_picture/',blank=True)
 
      class Meta:
         ordering = ('sport_name',)
