@@ -4,6 +4,9 @@ from rest_framework.views import APIView
 from sports.models import Sport,SportFollower
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework import generics
+from rest_framework.decorators import parser_classes
+from rest_framework.parsers import MultiPartParser
 from rest_framework.permissions import IsAuthenticated
 from sports.serializers import SportSerializer,SportFollowerSerializer
 from rest_framework.permissions import IsAuthenticated
@@ -50,3 +53,19 @@ class AllSports(generics.ListAPIView):
     def get_queryset(self):
         queryset = Sport.objects.all()
         return queryset
+
+@parser_classes((MultiPartParser,))
+class SportUpdate(generics.UpdateAPIView):
+    permissions = [IsAuthenticated]
+    parser_classes = MultiPartParser
+    queryset = Sport.objects.all()
+    def post(self,request):
+        instance=get_object_or_404(Sport,sport_name=request.data['sport_name'])
+        if instance:
+            serializer = SportSerializer(instance=instance,data=request.data)
+            if serializer.is_valid():
+                serializer.save(instance=instance,validated_data=serializer.validated_data)
+
+                return Response(serializer.data)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
