@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     'likes',
     'friends',
     'sports',
+    'storages'
 ]
 
 MIDDLEWARE = [
@@ -227,19 +228,33 @@ EMAIL_USE_TLS=True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATIC_URL = '/static/'
+#STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+#STATIC_URL = '/static/'
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'PlayYourWay/static'),
 )
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+AWS_ACCESS_KEY_ID = 'AKIAIZZLM3PD4Z7HSOGA'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'piptc-assets'
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+
+AWS_LOCATION = 'static'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+
+DEFAULT_FILE_STORAGE = 'PlayYourWay.storage_backends.MediaStorage'
 #For storing images and other files
-ENV_PATH = os.path.abspath(os.path.dirname(__file__))
-MEDIA_ROOT = os.path.join(ENV_PATH, 'media/')
-print("base dir path", BASE_DIR)
-print("env dir path", ENV_PATH)
-MEDIA_URL = 'media/'
+#ENV_PATH = os.path.abspath(os.path.dirname(__file__))
+#MEDIA_ROOT = os.path.join(ENV_PATH, 'media/')
+#print("base dir path", BASE_DIR)
+#print("env dir path", ENV_PATH)
+#MEDIA_URL = 'media/'
 django_heroku.settings(locals())
 GEOS_LIBRARY_PATH = os.getenv('GEOS_LIBRARY_PATH')
 GDAL_LIBRARY_PATH = os.getenv('GDAL_LIBRARY_PATH')
