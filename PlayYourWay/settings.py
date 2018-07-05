@@ -236,7 +236,9 @@ STATICFILES_DIRS = (
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 #For storing images and other files
 ENV_PATH = os.path.abspath(os.path.dirname(__file__))
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_ROOT = os.path.join(ENV_PATH, 'media/')
+print "base dir path", BASE_DIR
+print "env dir path", ENV_PATH
 MEDIA_URL = 'media/'
 django_heroku.settings(locals())
 GEOS_LIBRARY_PATH = os.getenv('GEOS_LIBRARY_PATH')
