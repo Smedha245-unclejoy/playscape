@@ -10,5 +10,7 @@ urlpatterns = [
     url(r'update/$',SportUpdate.as_view(),name='sport-update')
 
 ]
+if settings.DEBUG:
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns = format_suffix_patterns(urlpatterns)
