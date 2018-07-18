@@ -13,11 +13,13 @@ class Post(models.Model):
                        ('inactive','InactivePost')
                        )
     activity = models.CharField(choices = activity_choices,max_length=8,default='active')
-    likes= models.IntegerField(default=0)
+
+    class Meta:
+       ordering = ('created_at',)
 
     def save(self, *args, **kwargs):
         super(Post, self).save(*args, **kwargs)
 
 class PostImage(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    image = models.FileField(blank=True,upload_to='images/')
+    image = models.FileField(blank=True,upload_to='post_images/')

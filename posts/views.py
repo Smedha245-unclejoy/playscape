@@ -6,6 +6,8 @@ from rest_framework import generics
 from rest_framework.views import APIView
 from posts.models import Post,PostImage
 from rest_framework import status
+from friends.models import Friendship
+from django.db.models import Q
 from rest_framework.decorators import parser_classes
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
@@ -40,7 +42,7 @@ class AllPosts(generics.ListAPIView):
     serializer_class = PostSerializer
     def get_queryset(self):
         user_id = self.kwargs['user_id']
-        queryset = Post.objects.filter(user_id=user_id)
+        queryset = Post.objects.filter(user_id=user_id,activity='active')
         return queryset
 
 class PostDetail(APIView):
@@ -56,3 +58,15 @@ class PostDetail(APIView):
         post = get_object_or_404(Post, pk=post_id)
          #pk is primary key for post table
         return Response(PostSerializer(post).data)
+
+class PostFeed(generics.ListAPIView):
+    """
+    PostFeed first select * from posts where post.author=friend of user
+    """
+    permissions = [IsAuthenticated]
+    serializer = PostSerializer
+    def get_queryset(self):
+        author = Friendship.objects.filter(Q(friend=self.request.user.id)|Q(creator=self.request.user.id))
+        friend_id = author.friend.all()|author.creator.all()
+        queryset = Post.objects.filter(activity='active',user_id=friend_id)
+        return queryset

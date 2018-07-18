@@ -10,7 +10,6 @@ from rest_framework.decorators import parser_classes
 from rest_framework.parsers import MultiPartParser
 from rest_framework.permissions import IsAuthenticated
 from sports.serializers import SportSerializer,SportFollowerSerializer
-from rest_framework.permissions import IsAuthenticated
 
 # Create your views here.
 

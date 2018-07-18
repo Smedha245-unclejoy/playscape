@@ -14,8 +14,8 @@ class Preference(models.Model):
        unique_together = ('user', 'post', 'value')
 
 class Comment(models.Model):
- post = models.ForeignKey(Post, editable=False,
-     related_name='comments',on_delete=models.CASCADE)
- author = models.ForeignKey(User,on_delete=models.CASCADE)
- text = models.TextField()
- created = models.DateTimeField(auto_now_add=True)
+    post = models.ForeignKey(Post, editable=False,
+         related_name='comments',on_delete=models.CASCADE)
+    author = models.ForeignKey(User,on_delete=models.CASCADE)
+    text = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)

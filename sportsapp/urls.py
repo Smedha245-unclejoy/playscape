@@ -13,4 +13,5 @@ urlpatterns = [
     url(r'update', views.AuthInfoUpdateView.as_view(), name='account-update'),
     url(r'profile', views.SelfCreateProfile.as_view(), name='profile-create'),
     url(r'get', views.GetUser.as_view(), name='get-user'),
+    url(r'all', views.GetAllUsers.as_view(),name='all-users'),
 ]

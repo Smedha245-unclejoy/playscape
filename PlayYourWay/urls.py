@@ -31,7 +31,8 @@ urlpatterns = [
     url(r'^forgotpassword', views.ForgotPassword.as_view(),name='forgot_password'),
     url(r'^posts/', include('posts.urls')),
     url(r'^likes/', include('likes.urls')),
-    url(r'^sport/', include('sports.urls'))
+    url(r'^sport/', include('sports.urls')),
+    url(r'^playground/', include('playground.urls'))
 
 ]
 #if settings.DEBUG:
