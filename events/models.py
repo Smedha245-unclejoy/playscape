@@ -30,9 +30,7 @@ class Participators(models.Model):
     participant = models.ForeignKey(User,on_delete=models.CASCADE)
     #participant_name is username so that it will be unique
     participant_name = models.CharField(max_length=100,blank=True)
-    true_false=(('True','True'),
-                 ('False','False'))
-    confirm = models.CharField(max_length=5,default='False',choices=true_false)
+    confirm = models.BooleanField(default= False)
 
     class Meta:
        ordering = ('participant_name',)
