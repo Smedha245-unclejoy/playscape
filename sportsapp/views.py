@@ -152,5 +152,5 @@ class GetAllUsers(generics.ListAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = UserSerializer
     def get_queryset(self):
-        queryset = User.objects.all()
+        queryset = Profile.objects.all()
         return queryset
