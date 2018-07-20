@@ -7,13 +7,13 @@ class PostImageSerializer(serializers.ModelSerializer):
         model = PostImage
         fields = ('image','post')
 
-class PostSerializer(serializers.ModelSerializer):
+class PostSerializer(serializers.HyperlinkedModelSerializer):
     user_id = serializers.ReadOnlyField(source='user.id')
     images = PostImageSerializer(source='postimage_set', many=True, read_only=True)
-    body = serializers.CharField()
+    body = serializers.CharField(required=True)
     class Meta:
         model = Post
-        fields = ('id','user_id' ,'body','created_at','is_active','images')
+        fields = ('id','user_id','body','created_at','is_active','images')
 
     def create(self, validated_data):
         #print("Inside serializers")
