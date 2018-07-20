@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from posts.models import Post,PostImage
+from .models import Post,PostImage
 from django.contrib.auth.models import User
 
 class PostImageSerializer(serializers.ModelSerializer):
@@ -10,7 +10,6 @@ class PostImageSerializer(serializers.ModelSerializer):
 class PostSerializer(serializers.HyperlinkedModelSerializer):
     user_id = serializers.ReadOnlyField(source='user.id')
     images = PostImageSerializer(source='postimage_set', many=True, read_only=True)
-    body = serializers.CharField()
 
     class Meta:
         model = Post
