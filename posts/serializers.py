@@ -10,7 +10,7 @@ class PostImageSerializer(serializers.ModelSerializer):
 class PostSerializer(serializers.ModelSerializer):
     user_id = serializers.ReadOnlyField(source='user.id')
     images = PostImageSerializer(source='postimage_set', many=True, read_only=True)
-    body = serializers.CharField(source='post.body')
+    body = serializers.CharField()
     class Meta:
         model = Post
         fields = ('id','user_id' ,'body','created_at','is_active','images')
