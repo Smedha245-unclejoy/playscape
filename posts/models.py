@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 
 class Post(models.Model):
     user_id = models.ForeignKey(User,on_delete=models.CASCADE)
-    body = models.CharField(blank=False,max_length=100000)
+    body = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField(default=True)
 
