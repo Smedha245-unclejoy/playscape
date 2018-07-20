@@ -10,8 +10,7 @@ class PostImageSerializer(serializers.ModelSerializer):
 class PostSerializer(serializers.HyperlinkedModelSerializer):
     user_id = serializers.ReadOnlyField(source='user.id')
     images = PostImageSerializer(source='postimage_set', many=True, read_only=True)
-    #body = serializers.CharField(source='post.body')
-    #is_active = serializers.BooleanField(source='post.is_active')
+    body = serializers.CharField(source='post.body')
 
     class Meta:
         model = Post
