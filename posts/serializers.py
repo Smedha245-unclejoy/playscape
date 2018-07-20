@@ -18,8 +18,8 @@ class PostSerializer(serializers.HyperlinkedModelSerializer):
     def create(self, validated_data):
         #print("Inside serializers")
         images_data = self.context.get('view').request.FILES.getlist('file')
-        task = Post.objects.update_or_create(body = validated_data.get('body', 'no-title'),is_active = validated_data.get('is_active', True),
+        task = Post.objects.create(body = validated_data.get('body', 'no-title'),is_active = validated_data.get('is_active', True),
                         user_id=self.context.get('view').request.user)
         for image_data in images_data:
-            PostImage.objects.update_or_create(post=task.id, image=image_data)
+            PostImage.objects.create(post=task, image=image_data)
         return task
