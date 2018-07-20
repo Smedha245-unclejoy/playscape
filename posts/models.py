@@ -9,10 +9,7 @@ class Post(models.Model):
 
     body = models.TextField(blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
-    activity_choices =(('active','ActivePost'),
-                       ('inactive','InactivePost')
-                       )
-    activity = models.CharField(choices = activity_choices,max_length=8,default='active')
+    is_active = models.BooleanField(default=True)
 
     class Meta:
        ordering = ('created_at',)

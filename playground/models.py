@@ -9,6 +9,7 @@ from django.contrib.gis.geos import Point
 class Playground(models.Model):
     name = models.CharField(default='playground',max_length=200,blank=False)
     description=models.TextField(blank=True)
+    is_active = models.BooleanField(default=True)
     sport = models.ForeignKey(Sport,on_delete=models.CASCADE)
     creator = models.ForeignKey(User,on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)

@@ -10,19 +10,16 @@ class PostImageSerializer(serializers.ModelSerializer):
 class PostSerializer(serializers.HyperlinkedModelSerializer):
     user_id = serializers.ReadOnlyField(source='user.id')
     images = PostImageSerializer(source='postimage_set', many=True, read_only=True)
-    activity_choices = (('active','ActivePost'),
-                       ('inactive','InactivePost')
-                        )
-    activity = serializers.ChoiceField(source='post.activity',choices=activity_choices)
+    is_active = serializers.BooleanField(source='post.is_active')
 
     class Meta:
         model = Post
-        fields = ('id','user_id' ,'body','created_at','activity','images')
+        fields = ('id','user_id' ,'body','created_at','is_active','images')
 
     def create(self, validated_data):
         #print("Inside serializers")
         images_data = self.context.get('view').request.FILES.getlist('file')
-        task = Post.objects.update_or_create(body=validated_data.get('body', 'no-title'),activity = validated_data.get('activity', 'active'),
+        task = Post.objects.update_or_create(body=validated_data.get('body', 'no-title'),is_active = is_active.get('is_active', True),
                         user_id=self.context.get('view').request.user)
         for image_data in images_data:
             PostImage.objects.update_or_create(post=task, image=image_data)

@@ -10,6 +10,7 @@ class Event(models.Model):
     sport_category = models.ForeignKey(Sport,on_delete=models.CASCADE)
     playground_destination = models.ForeignKey(Playground,on_delete=models.CASCADE)
     description = models.TextField(default='No description')
+    is_active = models.BooleanField(default=True)
     name = models.CharField(max_length=200,blank=False)
     author = models.ForeignKey(User,on_delete=models.CASCADE)
     date = models.DateField(blank=False)

@@ -42,7 +42,7 @@ class AllPosts(generics.ListAPIView):
     serializer_class = PostSerializer
     def get_queryset(self):
         user_id = self.kwargs['user_id']
-        queryset = Post.objects.filter(user_id=user_id,activity='active')
+        queryset = Post.objects.filter(user_id=user_id,is_active=True)
         return queryset
 
 class PostDetail(APIView):
@@ -68,5 +68,5 @@ class PostFeed(generics.ListAPIView):
     def get_queryset(self):
         author = Friendship.objects.filter(Q(friend=self.request.user.id)|Q(creator=self.request.user.id))
         friend_id = author.friend.all()|author.creator.all()
-        queryset = Post.objects.filter(activity='active',user_id=friend_id)
+        queryset = Post.objects.filter(is_active=True,user_id=friend_id)
         return queryset
