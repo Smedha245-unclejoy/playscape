@@ -10,13 +10,13 @@ class Event(models.Model):
     sport_category = models.ForeignKey(Sport,on_delete=models.CASCADE)
     playground_destination = models.ForeignKey(Playground,on_delete=models.CASCADE)
     description = models.TextField(default='No description')
-    duration = models.TimeField(blank=False)
+    duration = models.TimeField(blank=False,default="01:00:00")
     is_active = models.BooleanField(default=True)
     name = models.CharField(max_length=200,blank=False)
     author = models.ForeignKey(User,on_delete=models.CASCADE)
     date = models.DateField(blank=False)
-    time_from = models.TimeField(blank=False)
-    time_to = models.TimeField(blank=False)
+    time_from = models.TimeField(blank=False,default="09:00:00")
+    time_to = models.TimeField(blank=False,default="12:00:00")
     created_at = models.DateTimeField(auto_now_add=True,blank=False)
 
     class Meta:

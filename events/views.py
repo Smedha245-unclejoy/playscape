@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
-from .serializers import EventSerializer
+from .serializers import EventSerializer,PartcipatorsSerializer
+from .models import Event,Participators
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
@@ -12,11 +13,12 @@ class CreateEventView(APIView):
     permissions = [IsAuthenticated]
     def post(self,request,format='json'):
         serializer = EventSerializer
+
         all_events = Events.objects.filter(date = request.data['date'],playground_destination=request.data['playground_destination'])
         if all_events:
             for events in all_events:
-                if request.data['time_from'] > events.time_from
-                     if request.data['time_from'] >= events.time_from + events.duration
+                if request.data['time_from'] > events.time_from:
+                     if request.data['time_from'] >= events.time_from + events.duration:
                             if serializer.is_valid():
                                 event = serializer.save()
                                 if event:
@@ -29,8 +31,8 @@ class CreateEventView(APIView):
                 json = 'The timing of this event collides with an event already created'
                 return Response(json,status=status.HTTP_409_CONFLICT)
 
-                if request.data['time_from'] < events.time_from
-                      if request.data['time_to'] <= events.time_from
+                if request.data['time_from'] < events.time_from:
+                      if request.data['time_to'] <= events.time_from:
                             if serializer.is_valid():
                                 event = serializer.save()
                                 if event:
@@ -43,7 +45,7 @@ class CreateEventView(APIView):
                 json = 'The timing of this event collides with an event already created'
                 return Response(json,status=status.HTTP_409_CONFLICT)
 
-                if request.data['time_from'] = events.time_from
+                if request.data['time_from'] == events.time_from:
                       json = 'The timing of this event collides with an event already created'
                       return Response(json,status=status.HTTP_409_CONFLICT)
 
