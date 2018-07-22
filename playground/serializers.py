@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from playground.models import Playground
+from django.contrib.gis.geos import GEOSGeometry
 from sportsapp.BaseField import Base64ImageField
+from django.contrib.gis.geos import Point
 from django.contrib.gis.geos import fromstr
 
 

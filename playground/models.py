@@ -1,7 +1,8 @@
-from django.db import models
+
 from django.contrib.auth.models import User
 from django.contrib.gis.db import models
 from sports.models import Sport
+from django.contrib.gis.geos import GEOSGeometry
 from django.contrib.gis.geos import Point
 
 # Create your models here.
