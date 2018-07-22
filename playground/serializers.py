@@ -13,7 +13,7 @@ class PlaygroundSerializer(serializers.ModelSerializer):
 
        class Meta:
            model=Playground
-           fields=('id','name','creator','created_at','address','latitude','longitude','location','preferred_radius','picture','description','sport')
+           fields=('id','name','creator','created_at','address','latitude','longitude','location','preferred_radius','picture','description','sport','is_active')
 
        def get_location(self,instance):
            ret = instance
