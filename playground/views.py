@@ -28,3 +28,20 @@ class AllPlaygroundList(generics.ListAPIView):
     def get_queryset(self):
         queryset = Playground.objects.all()
         return queryset
+
+class UpdatePlayground(generics.UpdateAPIView):
+    permissions = [IsAuthenticated]
+    serializer_class = PlaygroundSerializer
+    queryset = Playground.objects.all()
+    lookup_field = 'id'
+
+    def post(self, request, *args, **kwargs):
+        instance=get_object_or_404(Playground,pk=request.data['id'])
+        if instance:
+            serializer = PlaygroundSerializer(instance=instance,data=request.data)
+            if serializer.is_valid():
+                serializer.save(instance=instance,validated_data=serializer.validated_data)
+
+                return Response(serializer.data)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
