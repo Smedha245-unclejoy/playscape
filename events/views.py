@@ -12,7 +12,7 @@ from rest_framework import generics
 class CreateEventView(APIView):
     permissions = [IsAuthenticated]
     def post(self,request,format='json'):
-        serializer = EventSerializer
+        serializer = EventSerializer(data=request.data)
 
         all_events = Event.objects.filter(date = request.data['date'],playground_destination=request.data['playground_destination'])
         if all_events:
@@ -49,7 +49,7 @@ class CreateEventView(APIView):
                       json = 'The timing of this event collides with an event already created'
                       return Response(json,status=status.HTTP_409_CONFLICT)
 
-        if serializer.is_valid(self):
+        if serializer.is_valid():
             event = serializer.save()
             if event:
                 json = serializer.data
