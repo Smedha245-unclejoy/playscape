@@ -37,7 +37,7 @@ class UpdatePlayground(generics.UpdateAPIView):
     lookup_field = 'id'
 
     def post(self, request, *args, **kwargs):
-        instance=get_object_or_404(Playground,pk=request.data['id'])
+        instance=get_object_or_404(Playground,id=request.data['id'])
         if instance:
             serializer = PlaygroundSerializer(instance=instance,data=request.data)
             if serializer.is_valid():
