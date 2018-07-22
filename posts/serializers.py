@@ -23,3 +23,11 @@ class PostSerializer(serializers.HyperlinkedModelSerializer):
         for image_data in images_data:
             PostImage.objects.create(post=task, image=image_data)
         return task
+
+    def update(self,instance,validated_data):
+        images_data = self.context.get('view').request.FILES.getlist('file')
+        task = super(PostSerializer, self).update(instance, validated_data)
+        for image_data in images_data:
+            PostImage.objects.update_or_create(post=task,defaults=image_data)
+
+        return task

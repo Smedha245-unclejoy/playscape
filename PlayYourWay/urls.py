@@ -32,7 +32,8 @@ urlpatterns = [
     url(r'^posts/', include('posts.urls')),
     url(r'^likes/', include('likes.urls')),
     url(r'^sport/', include('sports.urls')),
-    url(r'^playground/', include('playground.urls'))
+    url(r'^playground/', include('playground.urls')),
+    url(r'^event/', include('events.urls')),
 
 ]
 #if settings.DEBUG:

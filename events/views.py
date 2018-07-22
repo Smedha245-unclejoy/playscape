@@ -12,6 +12,41 @@ class CreateEventView(APIView):
     permissions = [IsAuthenticated]
     def post(self,request,format='json'):
         serializer = EventSerializer
+        all_events = Events.objects.filter(date = request.data['date'],playground_destination=request.data['playground_destination'])
+        if all_events:
+            for events in all_events:
+                if request.data['time_from'] > events.time_from
+                     if request.data['time_from'] >= events.time_from + events.duration
+                            if serializer.is_valid():
+                                event = serializer.save()
+                                if event:
+                                    json = serializer.data
+                                    return Response(json,status=status.HTTP_201_CREATED)
+
+                            return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+                     json = 'The timing of this event collides with an event already created'
+                     return Response(json,status=status.HTTP_409_CONFLICT)
+                json = 'The timing of this event collides with an event already created'
+                return Response(json,status=status.HTTP_409_CONFLICT)
+
+                if request.data['time_from'] < events.time_from
+                      if request.data['time_to'] <= events.time_from
+                            if serializer.is_valid():
+                                event = serializer.save()
+                                if event:
+                                    json = serializer.data
+                                    return Response(json,status=status.HTTP_201_CREATED)
+
+                            return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+                      json = 'The timing of this event collides with an event already created'
+                      return Response(json,status=status.HTTP_409_CONFLICT)
+                json = 'The timing of this event collides with an event already created'
+                return Response(json,status=status.HTTP_409_CONFLICT)
+
+                if request.data['time_from'] = events.time_from
+                      json = 'The timing of this event collides with an event already created'
+                      return Response(json,status=status.HTTP_409_CONFLICT)
+
         if serializer.is_valid():
             event = serializer.save()
             if event:
@@ -19,6 +54,7 @@ class CreateEventView(APIView):
                 return Response(json,status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
 
 class UpdateParticipatorStatus(generics.UpdateAPIView):
     permissions = [IsAuthenticated]
