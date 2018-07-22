@@ -20,3 +20,10 @@ class PlaygroundSerializer(serializers.ModelSerializer):
            pnt = fromstr(instance.location)
            pnt = {'longitude': pnt.coords[0], 'latitude': pnt.coords[1]}
            return pnt
+
+       def create(self,validated_data):
+           playground = super(PlaygroundSerializer, self).create(validated_data)
+           return playground
+
+       def update(self,instance,validated_data):
+           return super(PlaygroundSerializer, self).update(instance, validated_data)
