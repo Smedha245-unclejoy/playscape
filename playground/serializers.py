@@ -9,7 +9,7 @@ from django.contrib.gis.geos import fromstr
 
 class PlaygroundSerializer(serializers.ModelSerializer):
        picture = Base64ImageField(source='playground.picture',required=False)
-       location = serializers.SerializerMethodField(required=False,source='playgrpund.location')
+       location = serializers.SerializerMethodField(required=False,source='playground.location')
 
        class Meta:
            model=Playground
