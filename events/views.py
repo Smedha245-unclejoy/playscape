@@ -49,7 +49,7 @@ class CreateEventView(APIView):
                       json = 'The timing of this event collides with an event already created'
                       return Response(json,status=status.HTTP_409_CONFLICT)
 
-        if serializer.is_valid():
+        if serializer.is_valid(self):
             event = serializer.save()
             if event:
                 json = serializer.data
