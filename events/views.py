@@ -12,6 +12,7 @@ from rest_framework import generics
 class CreateEventView(APIView):
     permissions = [IsAuthenticated]
     def post(self,request,format='json'):
+        request.data['author'] = request.user.id
         serializer = EventSerializer(data=request.data)
 
         all_events = Event.objects.filter(date = request.data['date'],playground_destination=request.data['playground_destination'])
