@@ -14,7 +14,7 @@ class CreateEventView(APIView):
     def post(self,request,format='json'):
         serializer = EventSerializer
 
-        all_events = Events.objects.filter(date = request.data['date'],playground_destination=request.data['playground_destination'])
+        all_events = Event.objects.filter(date = request.data['date'],playground_destination=request.data['playground_destination'])
         if all_events:
             for events in all_events:
                 if request.data['time_from'] > events.time_from:
