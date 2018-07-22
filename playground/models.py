@@ -4,6 +4,7 @@ from django.contrib.gis.db import models
 from sports.models import Sport
 from django.contrib.gis.geos import GEOSGeometry
 from django.contrib.gis.geos import Point
+import base64
 
 # Create your models here.
 
