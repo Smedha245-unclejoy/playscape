@@ -7,12 +7,13 @@ class FriendSerializer(serializers.Serializer):
     friend = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
 
     class Meta:
-        model=Friendship
+        model= Friendship
         fields = ('id','creator','friend','created','is_accepted')
 
 
     def create(self,validated_data):
-        friendship = Friendship.objects.create(creator=validated_data.get('creator'),friend = validated_data.get('friend'))
+        friendship = Friendship.objects.create(creator=validated_data.get('creator'),friend = validated_data.get('friend'),is_accepted=validated_data.get('is_accepted',False)
+                                                )
         return friendship
 
     def update(self,instance,validated_data):
