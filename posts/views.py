@@ -6,6 +6,7 @@ from rest_framework import generics
 from rest_framework.views import APIView
 from posts.models import Post,PostImage
 from rest_framework import status
+from django.contrib.auth.models import User
 from friends.models import Friendship
 from django.db.models import Q
 from rest_framework.decorators import parser_classes
