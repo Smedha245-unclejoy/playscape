@@ -66,9 +66,6 @@ class PostFeed(generics.ListAPIView):
     serializer_class = PostSerializer
     def get_queryset(self):
         author = get_object_or_404(Friendship,Q(creator=self.request.user.id)|Q(friend=self.request.user.id))
-        if author.count()>1:
-            for author_in in author:
-                queryset = Post.objects.filter(is_active=True,user_id=author_in.friend|author_in.creator)
-            return queryset
-        queryset = Post.objects.filter(is_active=True,user_id=author.friend|author.creator)
+        for author_in in author:
+            queryset = Post.objects.filter(is_active=True,user_id=author.entry_set.all()|author.creator.entry_set.all())
         return queryset
