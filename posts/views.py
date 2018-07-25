@@ -64,7 +64,7 @@ class PostFeed(generics.ListAPIView):
     PostFeed first select * from posts where post.author=friend of user
     """
     permissions = [IsAuthenticated]
-    serializer = PostSerializer
+    serializer_class = PostSerializer
     def get_queryset(self):
         author = Friendship.objects.filter(Q(friend_id=self.request.user.id)|Q(creator_id=self.request.user.id))
         for authors in author:
