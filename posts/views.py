@@ -70,4 +70,3 @@ class PostFeed(generics.ListAPIView):
             for author_in in author:
                 queryset = Post.objects.filter(is_active=True,user_id=author_in.friend|author_in.creator)
             return queryset
-        return(status=status.HTTP_404_NOT_FOUND)
