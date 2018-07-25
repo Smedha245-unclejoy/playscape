@@ -15,25 +15,24 @@ from django.shortcuts import get_object_or_404
 
 
 @parser_classes((MultiPartParser,))
-class Upload(ModelViewSet):
+class Upload(APIView):
     """
     To create a new post including multiple images
     """
     permissions = [IsAuthenticated]
     parser_classes = MultiPartParser
-    queryset = Post.objects.all()
     serializer_class = PostSerializer
 
+    def post(self,request):
+        request.data['user_id']=self.request.user.id
+        serializer = PostSerializer(data = request.data)
+        if serializer.is_valid():
+            post=serializer.save()
+            if post:
+                json = serializer.data
+                return Response(json,status=status.HTTP_201_CREATED)
+            return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
-    #def post(self,request,format=None):
-    #    print("Inside create")
-    #    self.parser_classes = (MultiPartParser,)
-    #    queryset = Post.objects.all()
-    #    serializer_class = PostSerializer
-    #    serializer = PostSerializer(data = request.data)
-    #    if serializer.is_valid():
-    #        serializer.save()
-    #        return Response(serializer.data)
 class AllPosts(generics.ListAPIView):
     """
     To fetch all posts created by the user when he makes a request by himself using his user_id
