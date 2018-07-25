@@ -65,6 +65,9 @@ class PostFeed(generics.ListAPIView):
     permissions = [IsAuthenticated]
     serializer_class = PostSerializer
     def get_queryset(self):
-        author = Friendship.objects.get(creator=self.request.user.id)
-        queryset = Post.objects.filter(is_active=True,user_id=author.friend.objects.all()|author.creator.objects.all())
-        return queryset
+        author = get_object_or_404(Friendship,Q(creator=self.request.user.id)|Q(friend=self.request.user.id),is_accepted=True)
+        if author:
+            for author_in in author:
+                queryset = Post.objects.filter(is_active=True,user_id=author_in.friend|author_in.creator)
+            return queryset
+        return("No data for this user",status=status.HTTP_404_NOT_FOUND)
