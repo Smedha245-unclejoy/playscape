@@ -34,6 +34,7 @@ urlpatterns = [
     url(r'^sport/', include('sports.urls')),
     url(r'^playground/', include('playground.urls')),
     url(r'^event/', include('events.urls')),
+    url(r'^friends/', include('friends.urls')),
 
 ]
 #if settings.DEBUG:
