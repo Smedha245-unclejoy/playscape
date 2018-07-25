@@ -12,7 +12,7 @@ class FriendSerializer(serializers.Serializer):
 
 
     def create(self,validated_data):
-        friendship = Friendship.objects.create(creator=self.context.get('view').request.user.id,friend = validated_data.get('friend'))
+        friendship = Friendship.objects.create(creator=validated_data.get('creator'),friend = validated_data.get('friend'))
         return friendship
 
     def update(self,instance,validated_data):

@@ -27,6 +27,7 @@ class AcceptFriendship(generics.UpdateAPIView):
     lookup_field = 'id'
     def post(self, request, *args, **kwargs):
         instance=Friendship.objects.filter(id=request.data['id'])
+        request.data['creator'] = self.request.user.id
         if instance:
             serializer = FriendSerializer(instance=instance,data=request.data)
             if serializer.is_valid():
