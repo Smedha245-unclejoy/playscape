@@ -1,6 +1,6 @@
 from django.conf.urls import url
 from rest_framework.routers import DefaultRouter
-from .views import Upload,AllPosts,PostDetail
+from .views import Upload,AllPosts,PostDetail,PostFeed
 from rest_framework.urlpatterns import format_suffix_patterns
 
 
@@ -12,7 +12,8 @@ post_list = Upload.as_view({
 urlpatterns = [
     url(r'^$', post_list, name='post_list'),
     url(r'(?P<post_id>\d+)/$', PostDetail.as_view(),name='post_detail'),
-    url(r'getall/(?P<user_id>\d+)/$', AllPosts.as_view(), name='all_posts')
+    url(r'getall/(?P<user_id>\d+)/$', AllPosts.as_view(), name='all_posts'),
+    url(r'postfeed/$', PostFeed.as_view(), name='post-feed')
 
 ]
 

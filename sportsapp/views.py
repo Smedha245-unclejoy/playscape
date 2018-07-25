@@ -154,3 +154,12 @@ class GetAllUsers(generics.ListAPIView):
     def get_queryset(self):
         queryset = User.objects.filter(is_staff=False)
         return queryset
+
+class GetUserThroughId(APIView):
+    permission_classes=[IsAuthenticated]
+    serializer_class = UserSerializer
+    def get(request,user_id):
+        user = get_object_or_404(User,pk=user_id)
+    if user:
+        return Response(UserSerializer(user).data)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

@@ -17,3 +17,9 @@ class CommentSerializer(serializers.ModelSerializer):
         comment = Comment.objects.create(author = self.context.get('view').request.user,post = validated_data.get('post'),
                                        text = validated_data.get('text'))
         return comment
+
+class PreferenceSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Preference
+        fields = ('id','user','post','value')

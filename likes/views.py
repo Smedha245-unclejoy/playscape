@@ -1,5 +1,8 @@
 from django.shortcuts import render,get_object_or_404
 from posts.models import Post
+from rest_framework import generics
+from .serializers import PreferenceSerializer,CommentSerializer
+from rest_framework.views import APIView
 from .models import Preference
 
 # Create your views here.
@@ -54,7 +57,9 @@ def postpreference(request, postid, userpreference):
 def createcomments(self,request,format='json'):
     if request.method == 'POST':
         queryset = User.objects.all()
-        post = Post.objects.filter(id = request.post_id)
+        user = get_object_or_404(User,id=request.user.id)
+        request.data['author_name'] = user.username
+        post = Post.objects.filter(id = request.data['post_id'])
         data['post']=post
         serializer = CommentSerializer(post=post,author=request.user,text=data['text'])
         if serializer.is_valid():
@@ -63,3 +68,21 @@ def createcomments(self,request,format='json'):
                 json = serializer.data
                 return Response(json, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class GetPreference(APIView):
+    permissions=[IsAuthenticated]
+    serializer_class = PreferenceSerializer
+    def get(self,request,user_id,post_id):
+        preference = Preference.objects.filter(post = post_id,user = user_id)
+        if preference:
+            value = preference.value
+            return Response(value,status = status.HTTP_200_OK)
+        return Response("no such post",status.HTTP_400_BAD_REQUEST)
+
+class CommentsForPost(generics.ListAPIView):
+    permissions = [IsAuthenticated]
+    serializer_class = CommentSerializer
+
+    def get_queryset(self,request,post_id):
+        queryset = Comment.objects.filter(post=post_id)
+        return queryset
