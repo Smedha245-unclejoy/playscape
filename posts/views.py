@@ -69,6 +69,8 @@ class PostFeed(generics.ListAPIView):
         author = Friendship.objects.filter(Q(friend_id=self.request.user.id)|Q(creator_id=self.request.user.id))
         for authors in author:
             friend_ids = author.friend.all()|author.creator.all()
-        for friends in friend_ids:
-            queryset = Post.objects.filter(is_active=True,user_id=friends)
-        return queryset
+            if friend_ids:
+                for friends in friend_ids:
+                    queryset = Post.objects.filter(is_active=True,user_id=friends)
+                return queryset
+        return "No posts as of now add friends to see their posts"
