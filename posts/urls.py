@@ -5,12 +5,12 @@ from rest_framework.urlpatterns import format_suffix_patterns
 
 
 
-post_list = Upload.as_view({
-    'get': 'list',
-    'post': 'create'
-})
+#post_list = Upload.as_view({
+#    'get': 'list',
+#    'post': 'create'
+#})
 urlpatterns = [
-    url(r'^$', post_list, name='post_list'),
+    url(r'^$', Upload.as_view(), name='post_list'),
     url(r'(?P<post_id>\d+)/$', PostDetail.as_view(),name='post_detail'),
     url(r'getall/(?P<user_id>\d+)/$', AllPosts.as_view(), name='all_posts'),
     url(r'postfeed/$', PostFeed.as_view(), name='post-feed')
