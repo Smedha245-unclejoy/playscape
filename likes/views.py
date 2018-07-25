@@ -3,6 +3,7 @@ from posts.models import Post
 from rest_framework import generics
 from .serializers import PreferenceSerializer,CommentSerializer
 from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
 from .models import Preference
 
 # Create your views here.

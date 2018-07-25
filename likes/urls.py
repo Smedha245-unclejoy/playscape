@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from .views import createcomments,postpreference,GetPreference
+from .views import createcomments,postpreference,GetPreference,CommentsForPost
 
 urlpatterns = [
        url(r'^(?P<postid>\d+)/preference/(?P<userpreference>\d+)/$',postpreference, name='postpreference'),
