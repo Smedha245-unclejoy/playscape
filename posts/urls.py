@@ -10,7 +10,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 #    'post': 'create'
 #})
 urlpatterns = [
-    url(r'^$', Upload.as_view(), name='post_list'),
+    url(r'^$', Upload.as_view(), name='post-create'),
     url(r'(?P<post_id>\d+)/$', PostDetail.as_view(),name='post_detail'),
     url(r'getall/(?P<user_id>\d+)/$', AllPosts.as_view(), name='all_posts'),
     url(r'postfeed/$', PostFeed.as_view(), name='post-feed')

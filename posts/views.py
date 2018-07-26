@@ -1,7 +1,6 @@
 from rest_framework.parsers import MultiPartParser
 from rest_framework.permissions import IsAuthenticated
 from posts.serializers import PostSerializer
-from rest_framework.viewsets import ModelViewSet
 from rest_framework import generics
 from rest_framework.views import APIView
 from posts.models import Post,PostImage
@@ -22,11 +21,10 @@ class Upload(APIView):
     """
     permissions = [IsAuthenticated]
     parser_classes = MultiPartParser
-    serializer_class = PostSerializer
 
     def post(self,request):
         request.data['user_id']=request.user.id
-        serializer = PostSerializer(data = request.data)
+        serializer = PostSerializer(data=request.data)
         if serializer.is_valid():
             post=serializer.save()
             if post:
