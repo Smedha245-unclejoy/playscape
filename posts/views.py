@@ -23,6 +23,7 @@ class Upload(ModelViewSet):
     permissions = [IsAuthenticated]
     parser_classes = MultiPartParser
     queryset = Post.objects.all()
+    serializer_class = PostSerializer
 
     def post(self,request,format=None):
         request.data['user_id']=request.user.id
