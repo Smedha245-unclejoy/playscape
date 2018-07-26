@@ -8,7 +8,7 @@ class PostImageSerializer(serializers.ModelSerializer):
         fields = ('image','post')
 
 class PostSerializer(serializers.ModelSerializer):
-    #user_id = serializers.ReadOnlyField(source='user.id')
+    author = serializers.ReadOnlyField(source='post.author')
     images = PostImageSerializer(source='postimage_set', many=True, read_only=True)
     #body = serializers.CharField(required=True)
     class Meta:
