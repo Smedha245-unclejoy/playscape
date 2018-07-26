@@ -19,7 +19,7 @@ class PostSerializer(serializers.ModelSerializer):
         #print("Inside serializers")
         images_data = self.context.get('view').request.FILES.getlist('file')
         task = Post.objects.create(body = validated_data.get('body', 'no-title'),is_active = validated_data.get('is_active', True),
-                        author=self.context.get('view').request.user)
+                        author=self.context.get('view').request.user.pk)
         for image_data in images_data:
             PostImage.objects.create(post=task, image=image_data)
         return task
