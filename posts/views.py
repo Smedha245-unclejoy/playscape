@@ -1,6 +1,7 @@
 from rest_framework.parsers import MultiPartParser
 from rest_framework.permissions import IsAuthenticated
 from posts.serializers import PostSerializer
+from rest_framework.viewsets import ModelViewSet
 from rest_framework import generics
 from rest_framework.views import APIView
 from posts.models import Post,PostImage
@@ -15,14 +16,15 @@ from django.shortcuts import get_object_or_404
 
 
 @parser_classes((MultiPartParser,))
-class Upload(APIView):
+class Upload(ModelViewSet):
     """
     To create a new post including multiple images
     """
     permissions = [IsAuthenticated]
     parser_classes = MultiPartParser
+    queryset = Post.objects.all()
 
-    def post(self,request):
+    def post(self,request,format=None):
         request.data['user_id']=request.user.id
         serializer = PostSerializer(data=request.data)
         if serializer.is_valid():
