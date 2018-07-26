@@ -25,15 +25,15 @@ class Upload(ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
 
-    def post(self,request,format=None):
-        request.data['user_id']=self.request.user.id
-        serializer = PostSerializer(data=request.data)
-        if serializer.is_valid():
-            post=serializer.save()
-            if post:
-                json = serializer.data
-                return Response(json,status=status.HTTP_201_CREATED)
-        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+    #def post(self,request,format=None):
+    #    request.data['user_id']=self.request.user.id
+    #    serializer = PostSerializer(data=request.data)
+    #    if serializer.is_valid():
+    #        post=serializer.save()
+    #        if post:
+    #            json = serializer.data
+    #            return Response(json,status=status.HTTP_201_CREATED)
+    #    return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
 class AllPosts(generics.ListAPIView):
     """
