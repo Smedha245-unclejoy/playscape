@@ -26,7 +26,8 @@ class Upload(ModelViewSet):
     serializer_class = PostSerializer
 
     def create(self, request, *args, **kwargs):
-        request.data['author'] = request.user
+        user = get_object_or_404(User,pk=request.user.pk)
+        request.data['author'] = user
         return super(self.__class__, self).create(request, *args, **kwargs)
 
     #def post(self,request,format=None):
