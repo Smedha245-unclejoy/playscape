@@ -26,7 +26,7 @@ class Upload(ModelViewSet):
     serializer_class = PostSerializer
 
     def post(self,request,format=None):
-        request.data['user_id']=request.user.id
+        request.data['user_id']=self.request.user.id
         serializer = PostSerializer(data=request.data)
         if serializer.is_valid():
             post=serializer.save()
