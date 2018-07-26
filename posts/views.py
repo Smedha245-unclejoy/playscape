@@ -25,7 +25,7 @@ class Upload(APIView):
     serializer_class = PostSerializer
 
     def post(self,request):
-        request.data['user_id']=self.request.user.id
+        request.data['user_id']=self.request.user
         serializer = PostSerializer(data = request.data)
         if serializer.is_valid():
             post=serializer.save()
