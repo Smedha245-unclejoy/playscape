@@ -27,7 +27,7 @@ class Upload(ModelViewSet):
 
     def create(self, request, *args, **kwargs):
         user = get_object_or_404(User,pk=request.user.pk)
-        request.data['author'] = user.pk
+        request.data['author'] = user
         return super(self.__class__, self).create(request, *args, **kwargs)
 
     #def post(self,request,format=None):
